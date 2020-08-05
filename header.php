@@ -23,5 +23,19 @@
 	
 
 <body <?php body_class(); ?>>
-	
+		<header class="master-header">
+			<div class="branding">
+				<div class="logo"><?php echo file_get_contents(get_template_directory_uri().'/dist/svg/logo.svg'); ?></div>
+				<div class="site-title"><?php echo bloginfo('title'); ?></div>
+			</div>
+			<nav>
+				<div class="navbar">
+					<ul>
+						<li><a href="/a-propos">A propos</a></li>
+						<li class="menu-btn login-btn"><a href="connect">Connexion</a></li>
+					</ul>
+				</div>
+			</nav>
+		</header>
 		<div class="content-container">
+

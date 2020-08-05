@@ -1,5 +1,6 @@
 <?php  
 
+
 function didask_get_cpt_taxonomies($post_id, $taxonomy) {
 	$tax_ar = [];
 	$terms = wp_get_post_terms( $post_id, $taxonomy );
