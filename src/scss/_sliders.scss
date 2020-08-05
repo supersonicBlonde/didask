@@ -1,0 +1,226 @@
+.slick-slide, .slick-active {
+	outline:none;
+}
+
+/* Arrows */
+ .slick-prev,
+.slick-next
+{
+    position: absolute;
+    display: block;
+    cursor: pointer;
+    color: transparent;
+    border: none;
+    outline: none;
+    background: transparent;
+    background-color: $color__primary;
+    border-radius: 50%;
+    width: 4.3em;
+    height: 4.3em;
+}
+
+
+// TESTIMONIAL SLIDER ARROWS
+//***********************************/
+
+#slider-section {
+    .slick-prev, .slick-next
+    {
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        transition: background 0.5s;
+        /* padding: 0;
+        margin-top: -10px\9; lte IE 8
+        -webkit-transform: translate(0, -50%);
+        -ms-transform: translate(0, -50%);
+        transform: translate(0, -50%); */      
+    }
+
+    .slick-prev {
+        left:0;
+    }
+    .slick-next {
+        right: 0;
+    }
+
+    @media (min-width: 1200px) {
+         .slick-prev,.slick-next {
+            top: 11em;
+        }
+
+        .slick-next {
+            right: 55%;
+        }
+    }
+
+}
+
+/**************************************
+          LOGOS
+          *****************************/
+
+#slider-logo-container {
+    /* Arrows */
+     .slick-prev,
+    .slick-next
+    {
+       
+        top: 46%;
+        transform: translateY(-50%);
+       /*  left: 2em; */
+
+        opacity: 0.3;
+       /*  transform: scale(0.9); */
+
+        display: block;
+
+        padding: 0;
+       /*  margin-top: -10px\9; lte IE 8
+       -webkit-transform: translate(0, -50%);
+       -ms-transform: translate(0, -50%);
+       transform: translate(0, -50%); */
+        transition: all 1s ease-out;
+
+        &:hover {
+            /* opacity: 1;
+            transform: scale(1); */
+        }
+        @media (min-width:768px) {
+            top: 53%;
+        }
+
+       @media (min-width:992px) {
+            top: 53%;
+            left: -2em;
+        } 
+
+        @media (min-width: 1200px) {
+            left: -5em;
+        }
+    }
+
+    .slick-next {
+        right: -5em;
+        left: auto;
+
+         @media (min-width:992px) {
+          right: -2em;
+        } 
+
+        @media (min-width: 1200px) {
+          right: -5em;
+        } 
+    }
+}
+
+
+
+#logo-section {
+
+    overflow: hidden;
+    
+    .column:first-child {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+} 
+
+
+/* #slider-logo-container .hideondesktop .slick-arrow {
+    top: 4em;
+} */
+
+#slider-logo-container .hideondesktop .slick-next {
+    right: -5em;
+}
+
+#slider-logo-container .hideondesktop .slick-prev {
+     left: -5em;
+}
+
+
+.hideondesktop {    
+
+    .slider-logos {
+
+        .slick-track {
+            display: flex;
+            margin-top: 8px;
+        }
+        .slick-slide {
+            padding: 0 1em;
+            display: flex;
+            height: auto;
+            align-items: center; //optional
+            justify-content: center; //optional
+        }
+    }
+}
+
+
+
+
+
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus
+{
+    color: transparent;
+    outline: none;
+    background: $color__secondary; 
+}
+.slick-prev:hover:before,
+.slick-next:hover:before,
+{
+    opacity: 1;
+    color: $color__primary;
+
+}
+.slick-prev.slick-disabled:before,
+.slick-next.slick-disabled:before
+{
+    opacity: .25;
+} 
+
+.slick-prev:before,
+.slick-next:before
+{
+    
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display:inline-block;
+    /* width: 4.3em;
+    height: 4.3em; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+  
+    transform: translate(-50%, -50%);
+    content: "\f101";
+    font-family: Flaticon;
+    color: white;
+    font-size: 1.5em;
+}
+
+    
+.slick-prev:before {
+    left: 30%;
+    top: 32%;
+    /* background-image:url(../../img/prev-arrow.svg);  */
+    /* content: "\f101";
+    background: $color__primary;
+    font-family: "Flaticon";
+    color: white; */
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+
+}
+
+.slick-next:before {
+    left: 50%;
+    top: 50%;
+    
+}
+

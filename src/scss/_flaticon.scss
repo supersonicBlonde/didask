@@ -1,0 +1,51 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 10/06/2020 12:07
+    */
+
+
+
+    .fi:before{
+        display: inline-block;
+      font-family: "Flaticon";
+      font-style: normal;
+      font-weight: normal;
+      font-variant: normal;
+      line-height: 1;
+      text-decoration: inherit;
+      text-rendering: optimizeLegibility;
+      text-transform: none;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      font-smoothing: antialiased;
+    }
+
+    .flaticon-down-arrow:before { content: "\f100"; }
+.flaticon-right-arrow:before { content: "\f101"; }
+.flaticon-play:before { content: "\f102"; }
+.flaticon-right-arrow-1:before { content: "\f103"; }
+.flaticon-mouse:before { content: "\f104"; }
+.flaticon-instagram:before { content: "\f105"; }
+.flaticon-facebook:before { content: "\f106"; }
+.flaticon-twitter:before { content: "\f107"; }
+.flaticon-close:before { content: "\f108"; }
+.flaticon-linkedin:before { content: "\f109"; }
+.flaticon-whatsapp:before { content: "\f10a"; }
+.flaticon-send:before { content: "\f10b"; }
+.flaticon-text-edit:before { content: "\f10c"; }
+.flaticon-close-1:before { content: "\f10d"; }
+    
+    $font-Flaticon-down-arrow: "\f100";
+    $font-Flaticon-right-arrow: "\f101";
+    $font-Flaticon-play: "\f102";
+    $font-Flaticon-right-arrow-1: "\f103";
+    $font-Flaticon-mouse: "\f104";
+    $font-Flaticon-instagram: "\f105";
+    $font-Flaticon-facebook: "\f106";
+    $font-Flaticon-twitter: "\f107";
+    $font-Flaticon-close: "\f108";
+    $font-Flaticon-linkedin: "\f109";
+    $font-Flaticon-whatsapp: "\f10a";
+    $font-Flaticon-send: "\f10b";
+    $font-Flaticon-text-edit: "\f10c";
+    $font-Flaticon-close-1: "\f10d";
