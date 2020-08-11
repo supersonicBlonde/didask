@@ -13,22 +13,21 @@
 
 
 	
-add_action( 'init', 'didask_video' );
-add_action( 'init', 'didask_port_tax' );
-
-add_action( 'init', 'didask_team' );
-add_action( 'init', 'didask_team_tax' );
-
-	
+add_action( 'init', 'didask_parcours' );
+add_action( 'init', 'didask_parcours_tax' );
+add_action( 'init', 'didask_episode' );
+add_action( 'init', 'didask_episode_tax' );
 
 
-/* portfolio CPT */
-function didask_video() {
+
+
+
+function didask_parcours() {
 	$labels = array(
-		'name' 				=> 'Portfolios',
-		'singular_name' 	=> 'Portfolio',
-		'menu_name'			=> 'Portfolios',
-		'name_admin_bar'	=> 'Portfolio'
+		'name' 				=> 'Parcours',
+		'singular_name' 	=> 'Parcours',
+		'menu_name'			=> 'Parcours',
+		'name_admin_bar'	=> 'Parcours'
 	);
 	
 	$args = array(
@@ -39,39 +38,16 @@ function didask_video() {
 		'hierarchical'		=> true,
 		'has_archive'		=> true,
 		'menu_position'		=> 10,
-		'menu_icon'			=> 'dashicons-video-alt2',
-		'supports'			=> array( 'title', 'author', 'thumbnail' )
+		'menu_icon'			=> 'dashicons-clipboard',
+		'supports'			=> array( 'title' ,  'thumbnail' )
 	);
 	
-	register_post_type( 'portfoliovideo', $args );
+	register_post_type( 'parcours', $args );
 	
 }
 
-function didask_team() {
-	$labels = array(
-		'name' 				=> 'Teams',
-		'singular_name' 	=> 'Team',
-		'menu_name'			=> 'Teams',
-		'name_admin_bar'	=> 'Team'
-	);
-	
-	$args = array(
-		'labels'			=> $labels,
-		'show_ui'			=> true,
-		'show_in_menu'		=> true,
-		'capability_type'	=> 'post',
-		'hierarchical'		=> true,
-		'has_archive'		=> true,
-		'menu_position'		=> 10,
-		'menu_icon'			=> 'dashicons-universal-access-alt',
-		'supports'			=> array( 'title', 'author', 'thumbnail' )
-	);
-	
-	register_post_type( 'team', $args );
-	
-}
 
-function didask_port_tax() {
+function didask_parcours_tax() {
 	
 	// Add new taxonomy, make it hierarchical (like categories)
 	$labels = array(
@@ -88,11 +64,35 @@ function didask_port_tax() {
 		'show_admin_column' => true,
 	);
 
-	register_taxonomy( 'videos-category', array( 'portfoliovideo' ), $args );
+	register_taxonomy( 'parcours-category', array( 'parcours' ), $args );
 }
 
 
-function didask_team_tax() {
+function didask_episode() {
+	$labels = array(
+		'name' 				=> 'Episodes',
+		'singular_name' 	=> 'Episode',
+		'menu_name'			=> 'Episodes',
+		'name_admin_bar'	=> 'Episodes'
+	);
+	
+	$args = array(
+		'labels'			=> $labels,
+		'show_ui'			=> true,
+		'show_in_menu'		=> true,
+		'capability_type'	=> 'post',
+		'hierarchical'		=> true,
+		'has_archive'		=> true,
+		'menu_position'		=> 10,
+		'menu_icon'			=> 'dashicons-nametag',
+		'supports'			=> array( 'title', 'author', 'thumbnail' )
+	);
+	
+	register_post_type( 'episodes', $args );
+	
+}
+
+function didask_episode_tax() {
 	
 	// Add new taxonomy, make it hierarchical (like categories)
 	$labels = array(
@@ -102,13 +102,13 @@ function didask_team_tax() {
 	);
 
 	$args = array(
-		'hierarchical'      => true,
+		'hierarchical'      => false,
+		'public'			=> true,	
 		'labels'            => $labels,
 		'show_ui'           => true,
 		'show_admin_column' => true,
-		'query_var'         => true,
-		'rewrite'           => array( 'slug' => 'team-category' ),
 	);
 
-	register_taxonomy( 'team-category', array( 'team' ), $args );
+	register_taxonomy( 'episode-category', array( 'episodes' ), $args );
 }
+

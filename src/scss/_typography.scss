@@ -1,10 +1,66 @@
 
 $font__primary: "Barlow", sans-serif;
-$font__main: "Lato", sans-serif;
+$font__secondary: 'Neuton', serif;
 
 $font__code: monaco, consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
 $font__pre: "Courier 10 Pitch", courier, monospace;
 
+body {
+	font-family: $font__primary;
+}
 
 
 
+h1 {
+	font-family: $font__secondary;
+	font-size: 5.6em;
+}
+
+h2, h1.h2-sized {
+/* 	margin: 0.3em 0 0.3em 0; */
+	font-family: $font__secondary;
+	font-size: 2em;
+}
+
+
+
+.page-title {
+	font-family: $font__secondary;
+	font-size: 4.6em;
+	text-align: center;
+	font-weight: 700;
+}
+
+.fs-20 {
+	font-size:1.25em;
+}
+
+.fs-26 {
+	font-size:1.6em;
+}
+
+.fs-28, .small-title {
+	font-size: 1.75em;
+}
+
+.upc {
+	text-transform: uppercase;
+}
+
+.lh-x2 {
+	line-height: 2rem;
+}
+
+.super-title {
+	font-weight: 300;
+	font-size: 1.4em;
+	text-transform: uppercase;
+}
+
+.fw-300 {
+	font-weight: 300;
+}
+
+.fw-600 {
+	font-weight: 600;
+}

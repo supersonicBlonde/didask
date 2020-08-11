@@ -71,7 +71,7 @@ function add_file_types_to_uploads($file_types){
 }
 add_filter('upload_mimes', 'add_file_types_to_uploads');
 
-add_theme_support( 'post-thumbnails', array( 'post' , 'page' ) );        
+add_theme_support( 'post-thumbnails', array( 'post' , 'page' , 'parcours'  ) );        
 
 
 //  IN ORDER TOC CREATE A TAXONOMY PAGES

@@ -2,8 +2,8 @@
 	GENERIC STYLES
 	*********************************************/
 
-body {
-	font-size:10px;
+body.home {
+	color: #FFF;
 }
 
 
@@ -30,9 +30,32 @@ body {
 
 
 
+
 img:not(.notresp) {
 	max-width: 100%;
 	height: auto;
+}
+
+
+/*************************************
+	MIXINS
+	******************************************/
+@mixin reset-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin horizontal-list {
+  @include reset-list;
+
+  li {
+    display: inline-block;
+    margin: {
+      left: -2px;
+      right: 2em;
+    }
+  }
 }
 
 

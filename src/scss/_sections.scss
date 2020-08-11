@@ -13,6 +13,10 @@ html, body {
 }
 
 
+.mb-small {
+	margin-bottom: 0.5em;
+}
+
 
 /*************************************************************
 // BACKGROUND
@@ -23,8 +27,78 @@ body.home {
 }
 
 
+.header-nav, footer .footer-content {
+	width: 95%;
+	margin: 0 auto;
+}
+
 /*************************************************************
 // CONTAINERS
 /************************************************************/
+
+
+.wrapper {
+	margin-right: auto;
+	margin-left:  auto;
+
+	max-width: 1600px;
+
+	padding-right: 10px;
+	padding-left:  10px;
+}
+
+section, .section {
+	/* margin: 6em 0; */
+	/* padding: 3em; */
+}
+
+.column {
+	/* margin: 2em 0; */
+}
+
+
+/************************************************
+	HOME
+	***********************************************************/
+.home .parcours-item {
+	/* margin:3em 0;
+	padding: 2em; */
+	border: 1px solid #fff;
+}
+
+
+/************************************************
+	EPISODES - PAGE PARCOURS
+	***********************************************************/
+
+.episodes-list {  
+
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+
+	.episodes-item {
+
+		position: relative; 
+
+		@media(min-width: 1920px) {
+			flex-basis: 30%;
+
+		} 
+	}
+}
+
+.content-episode {
+	display: none;
+	width: 100%;
+	.container {
+		display: flex;
+		
+	}
+}
+
+
+
+
 
 
