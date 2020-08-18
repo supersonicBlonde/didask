@@ -38,6 +38,7 @@ function didask_parcours() {
 		'hierarchical'		=> true,
 		'has_archive'		=> true,
 		'menu_position'		=> 10,
+		'public'			=> true,
 		'menu_icon'			=> 'dashicons-clipboard',
 		'supports'			=> array( 'title' ,  'thumbnail' )
 	);

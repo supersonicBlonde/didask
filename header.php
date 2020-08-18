@@ -24,41 +24,33 @@
 	
 
 <body <?php body_class(); ?>>
-		<header class="master-header">
-			<div class="header-nav">
-				<div class="branding">
-					<div class="logo"><?php echo file_get_contents(get_template_directory_uri().'/dist/svg/logo.svg'); ?></div>
-					<div class="site-title"><?php echo bloginfo('title'); ?></div>
-				</div>
-				<nav>
-					<div class="navbar">
-						<ul>
-							<li class="menu-btn login-btn">
-								<?php
-								if(!is_user_logged_in()):
-								?>
-									<a href="/login">Connexion</a>
-								<?php else: ?>
-									<a href="/account">Mon Compte</a>
-								<?php endif; ?>
-								</a>
-						</li>
-						</ul>
-					</div>
-				</nav>
-			</div>
-				<?php if(is_page('home-parcours')): ?>
-					<div class="header-content scroll-after section wrapper">
-						<div class="parcours-item">
-				        	<div class="column">
-				        		<div class="super-title">Parcours</div>
-				        		<h1 class="h2-sized">Nom du parcours</h1>
-				        		<p class="fs-26 lh-x2 fw-300"> Objectif : ouvrir l'esprit de l'équipe sur la diversité des apprentissages possibles en dehors des journées de formation.</p>
-				        	</div>
-				        	<div class="column"><?php the_post_thumbnail('full'); ?></div>
-				        </div>
-					</div>
-				<?php endif; ?>
-		</header>
-		<div class="wrapper">
+	<header id="header-container" class="header-container">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="/"><span class="logo"><?php echo file_get_contents(get_template_directory_uri().'/dist/svg/logo.svg'); ?></span><span class="site-title pl-xl-4 pl-2"><?php echo bloginfo('title'); ?></span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <?php
+          if(!is_user_logged_in()):
+          ?>
+            <a class="nav-link menu-btn login-btn" href="/login">Connexion</a>
+          <?php else: ?>
+            <a class="nav-link menu-btn login-btn" href="/account">Mon Compte</a>
+          <?php endif; ?>
+          </a>
+        </li>
+      </ul>
+      <!-- <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form> -->
+      </div>
+    </nav>
+	</header>
+		
+	<div class="wrapper">
 

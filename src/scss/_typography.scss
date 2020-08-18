@@ -7,60 +7,93 @@ $font__pre: "Courier 10 Pitch", courier, monospace;
 
 body {
 	font-family: $font__primary;
+	font-size: 10px;
+	font-weight: 300;
+}
+
+p {
+	line-height: 1.5;
+	font-size: 1.5em;
+}
+
+
+
+@media (min-width: 992px) {
+	body {
+		font-size: 16px;
+	}
+}
+
+
+@media (min-width: 992px) {
+	body {
+		font-size: 16px;
+	}
+}
+
+
+@media (min-width: 2560px) {
+	body {
+		font-size: 24px;
+	}
+}
+
+@media (min-width: 3600px) {
+	body {
+		font-size: 32px;
+	}
+
 }
 
 
 
 h1 {
 	font-family: $font__secondary;
-	font-size: 5.6em;
+	font-size: 3em;
+	line-height: .9;
+	margin-bottom: .45em;
+
+	@media(min-width: 768px) {
+		font-size: 5.6em;
+	}
 }
 
-h2, h1.h2-sized {
-/* 	margin: 0.3em 0 0.3em 0; */
+
+
+h2, .h2-sized {
 	font-family: $font__secondary;
 	font-size: 2em;
 }
 
+h3, .h3-sized {
+	font-family: $font__primary;
+	font-size: 1.75em;
+	margin-bottom: 1rem;
+	font-weight: 600;
+}
 
 
-.page-title {
+.site-title {
+	font-size: .6em;
+	text-transform: uppercase;
+	font-family: $font__primary;
+
+	@media(min-width: 992px) {
+		font-size: 1.5rem;
+	}
+}
+
+
+
+
+
+
+.page-title { 
 	font-family: $font__secondary;
 	font-size: 4.6em;
-	text-align: center;
 	font-weight: 700;
 }
 
-.fs-20 {
-	font-size:1.25em;
-}
 
-.fs-26 {
-	font-size:1.6em;
-}
 
-.fs-28, .small-title {
-	font-size: 1.75em;
-}
 
-.upc {
-	text-transform: uppercase;
-}
-
-.lh-x2 {
-	line-height: 2rem;
-}
-
-.super-title {
-	font-weight: 300;
-	font-size: 1.4em;
-	text-transform: uppercase;
-}
-
-.fw-300 {
-	font-weight: 300;
-}
-
-.fw-600 {
-	font-weight: 600;
-}
