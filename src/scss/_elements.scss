@@ -1,12 +1,70 @@
 // BASIC ELEMENTS
 /****************************************************/
 
+#intro .row {
+	margin:2em 0;
+}
+
+.up-btn {
+	text-transform: uppercase;
+	font-size: 1.6em;
+	font-weight: 600;
+	margin-bottom: .5em;
+}
+
+body {
+	position: relative;
+}
+
 body.home {
 	background: linear-gradient(#2f2155, #373e71);
 }
 
+#preloader {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%);
+}
 
+.scale {
+	transition: all 0.5s;
 
+	&.scaleOut {
+		transform: scale(0.99);
+	}
+
+	&.scaleIn {
+		transform: scale(1);
+	}
+}
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  display: none;
+  background-color: rgba(255,255,255,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+  transition: opacity 2s;
+
+  &.show {
+  	opacity: 1;
+  	display: block;
+  }
+
+   &.hide {
+  	opacity: 0;
+  	display: none;
+  }
+
+}
 // GENERICS
 /***************************************************/
 
@@ -85,28 +143,45 @@ body.home {
 /***************************************************/
 
 
-.content-episode a {
-	text-transform: uppercase;
-	color: white;
-	text-decoration: none;
-	margin:1em 0;
-	border: 2px solid #352A58;
-	border-radius: 2.5em;
-	color: #352A58;
-	padding: .8em 3em;
-	display: inline-block;
-	vertical-align: middle;
-	font-weight: 500;
-	font-size: 1.2em;
+.content-episode {
 
-	&:before {
-		content: url(../../img/play.svg);
-		padding-right: 1em;
-		vertical-align: inherit;
+	.content {
+		margin-top: 54px;
+
+		a {
+			text-transform: uppercase;
+			color: white;
+			text-decoration: none;
+			margin:1em 0;
+			border: 2px solid #352A58;
+			border-radius: 2.5em;
+			color: #352A58;
+			padding: .8em 3em;
+			display: inline-block;
+			vertical-align: middle;
+			font-weight: 500;
+			font-size: 1.2em;
+
+				&:before {
+					content: url(../../img/play.svg);
+					padding-right: 1em;
+					vertical-align: inherit;
+				}
+			}
+
+		}
+
+	.up-title {
+		&:before {
+			content:url(../../dist/svg/arrow_blue_to_top.svg);
+			display:block;
+		}
 	}
 }
 
-.menu-btn, .default-btn {
+
+
+.menu-btn, .default-btn:not(.cancel-track) {
 	border: 2px solid #FFFFFF;
 	border-radius: 2.5em;
 }
@@ -123,7 +198,7 @@ body.home {
 	padding: 0.1em .7em !important;
 }
 
-.login-btn:before {
+.login-btn a:before {
 	content:url("../../img/user.svg");
 	display: inline-block;
 	vertical-align: -13%;
@@ -160,6 +235,8 @@ body.home {
 	}
 }
 .nav-link {
+	padding-top: 0.1rem;
+	padding-bottom: 0.1rem;
 	font-size: 1.8em;
     font-family: $font__primary;
     font-weight: 200;
@@ -167,14 +244,34 @@ body.home {
     text-decoration: none;
 }
 
-footer {
+.logout-btn {
+
+	margin-right: 2em;
+	display: flex;
+	align-items: center;
+
+	a {
+		font-size: 1em;
+		text-decoration: underline;
+	}
+}
+
+.home footer {
 	margin-top: 25em;
 }
 
 footer, header {
 	padding: .5em 1em;
-	background: #211948;
 }
+
+footer, header {
+	background: $color__background;
+}
+
+.home header {
+	background: transparent;
+}
+
 
 
 // HOME
@@ -268,22 +365,24 @@ footer, header {
 			 position: relative;
 
 			 .colored {
+
 			 	border-color: #352A58;
+
+			 	&:after {
+					content: '';
+				    position: absolute;
+				    left: 50%;
+				    transform: translateX(-50%);
+				    top: 100%;
+				    margin-top: -3px;
+				    width: 0;
+				    height: 0;
+				    border-left: 20px solid transparent;
+				    border-right: 20px solid transparent;
+				    border-top: 20px solid #e8e8e8;
+				    clear: both;
+				}
 			 }
-
-			&:after {
-				 content: '';
-			    position: absolute;
-			    left: 42%;
-			    top: 100%;
-			    width: 0;
-			    height: 0;
-			    border-left: 20px solid transparent;
-			    border-right: 20px solid transparent;
-			    border-top: 20px solid #e8e8e8;
-			    clear: both;
-
-			}
 		}
 	}
 }
@@ -303,6 +402,21 @@ footer, header {
 
 	text-align:center;
 
+	.bravo {
+		display: block;
+		font-family: $font__secondary;
+		font-size: 3.6em;
+	}
+
+	.cancel-track {
+
+		
+			font-size:1em;
+			text-decoration: underline;
+			color: $color__background;
+		
+	}
+
 	> div:first-child {
 		font-weight: 600;
 		font-size: 1.7em;
@@ -311,5 +425,119 @@ footer, header {
 	a {
 		font-size: 1.5em;
 		font-weight: 500;
+	}
+}
+
+
+/**********************************
+		PROGRESS BAR 
+		************************************/
+
+#progress-section {
+
+	margin:3em 0 3em 0;
+
+	.progress-text {
+		font-weight: 600;
+		font-size: 1.25em;
+	}
+
+	.progress {
+	  margin:1.25em 0;
+	  padding:0;
+	  width:70%;
+	  height:23px;
+	  overflow:hidden;
+	  background:transparent;
+	  border:1px solid #00AAA6;
+	}
+
+	.bar {
+	  position:relative;
+	  float:left;
+	  min-width:1%;
+	  height:100%;
+	  background:#00AAA6;
+	}
+}
+
+.completed {
+
+	margin-bottom:3em;
+
+	& div:first-child {
+		text-transform: uppercase;
+		font-size: 1.6em;
+		font-weight: 600;
+		margin-bottom: .5em;
+	}
+}
+
+.checkmark:before {
+	content:url(../../dist/svg/checkmark.svg);
+	vertical-align: -13%;
+	padding-left: 15px;
+}
+/***************************
+	LOGIN PAGES
+	*************************/
+
+body.um-page-login article {
+	margin-top: 3em;
+}
+
+
+.um input[type=submit].um-button, .um input[type=submit].um-button:focus, .um a.um-button, .um a.um-button.um-disabled:hover, .um a.um-button.um-disabled:focus, .um a.um-button.um-disabled:active {
+    border: 2px solid #352A58!important;
+	border-radius: 40px!important;
+}
+
+.um input[type=submit].um-button, .um input[type=submit].um-button:focus {
+    background: #352A58!important;
+}
+
+.um a.um-button, .um .um-button.um-alt, .um .um-field-label {
+	color: #352A58!important;
+}
+
+
+.um .um-button.um-alt {
+	background: white!important;
+}
+
+a.um-link-alt { 
+	text-decoration: underline!important;
+	color: #352A58!important;
+}
+
+.um-link, .um-account-side li a.current span.um-account-icon {
+	color: #352A58!important;	
+}
+
+.um-form input {
+	border: 2px solid #352A58!important; 
+}
+
+.logged-in.um-page-account.um-page-loggedin article{
+	margin:3em auto;
+	width:80%;
+}
+
+.logged-in-only {
+	text-align: center;
+	font-size: 1.8em;
+	margin: 3em;
+}
+
+
+#parcours-secondaire {
+	display: none;
+	width: 100%;
+	background: url(../../img/bg_secondaire.png);
+	background-size:cover;
+	padding:3em 0;
+
+	#intro, .parcours-container {
+		color: white;
 	}
 }

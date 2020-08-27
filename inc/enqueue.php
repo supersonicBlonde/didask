@@ -21,7 +21,7 @@ function didask_load_scripts(){
 	wp_enqueue_style( 'bootstrap', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css', array(), '4.5.0', 'all' );
 
 	wp_enqueue_style( 'barlow-font', 'https://fonts.googleapis.com/css2?family=Barlow:wght@100;200;300;400;500;600;700;800;900&display=swap', array(), '', 'all'); 
-	wp_enqueue_style( 'neuton-font', 'https://fonts.googleapis.com/css2?family=Neuton:wght@200;300;400;700;800&display=swap', array(), '', 'all'); 
+	wp_enqueue_style( 'playfair-font', 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap', array(), '', 'all'); 
 
 
 	wp_enqueue_style( 'didask-style', get_stylesheet_uri(), array(), _S_VERSION );
