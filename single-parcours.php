@@ -126,10 +126,16 @@ get_header();
 			
 
 						?>
-
 						<div class="checkbox-discover">
-							<input type="checkbox" name="progress" value="" disabled <?php echo $checked; ?>><label class="pl-2" for="progress"> <?php echo $label; ?></label>
-						</div><!-- .checkbox-discover -->
+							<label  for="progress"><span class="text-label"><?php echo $label; ?></span>
+							  <input type="checkbox" name="progress" value="" disabled <?php echo $checked; ?>>
+							  <span class="checkmark-input"></span>
+							</label>
+						</div>
+
+						<!-- <div class="checkbox-discover">
+							<input type="checkbox" ><label class="pl-2" for="progress"> <?php echo $label; ?></label>
+						</div> --><!-- .checkbox-discover -->
 
 						<div style="background-color:<?php echo $couleur; ?>" class="colored p-5" data-color="<?php echo $couleur; ?>">
 

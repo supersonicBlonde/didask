@@ -134,11 +134,11 @@ function save_progression(index, id_parcours , id_episode) {
 
 				//let cb_container = episode_ar[index].querySelector('.checkbox-discover'); 
 				cb_container.querySelector('input').checked = true;
-				cb_container.querySelector('label').innerHTML = "Terminé";
+				cb_container.querySelector('.text-label').innerHTML = "Terminé";
 				if(response['completed'] == 1) {
 					let parcours_secondaire = document.getElementById('parcours-secondaire');
 					parcours_secondaire.style.display = 'block';
-					parcours_secondaire.scrollIntoView();
+					parcours_secondaire.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
 				}
 				//update_progress_bar();
 			}
@@ -194,7 +194,7 @@ function cancel_progression(index, id_parcours , id_episode) {
 				console.log('arindex', ar[index]);
 				let cb_container = episode_ar[index].querySelector('.checkbox-discover'); */
 				cb_container.querySelector('input').checked = false;
-				cb_container.querySelector('label').innerHTML = "A découvrir";
+				cb_container.querySelector('.text-label').innerHTML = "A découvrir";
 				//update_progress_bar();
 			}
 		},
@@ -226,6 +226,16 @@ function navbarAnimate(el) {
 
 var callback = function() {
 
+	let scroll_btn = document.querySelectorAll('.scroll-next a');
+
+	scroll_btn.forEach(item => {
+	  item.addEventListener('click', event => {
+	  	event.preventDefault(); 
+	  	let parent = item.closest('.section');
+	  	let next_section = parent.nextElementSibling;
+	  	next_section.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+	  	})
+	});
 	//****************************************
 	// MENU HAMBURGER
 	//****************************************

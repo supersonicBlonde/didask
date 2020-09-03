@@ -208,7 +208,7 @@ if($main_parcours) {
 							        			<div class="up-title">Parcours</div>
 							        			<h2><?php the_title(); ?></h2>
 							        			<div id="progress-section">
-													<div class="progress-text"><?php echo $progress['achieved'] ?> épisode<?php $progress['achieved'] > 1?'s':''?> terminé<?php echo $progress['achieved'] > 1?'s':''?> sur <?php echo $episodes_number; ?>
+													<div class="progress-text"><?php echo $progress['achieved'] ?> épisode<?php echo $progress['achieved'] > 1?'s':''?> terminé<?php echo $progress['achieved'] > 1?'s':''?> sur <?php echo $episodes_number; ?>
 														<?php if($progress['completed'] == 1): ?>
 															<span class="checkmark"></span>
 														<?php endif; ?>
@@ -221,6 +221,9 @@ if($main_parcours) {
 							        		</div>
 							        		<div class="col-12 col-lg-6">
 							        			<p><?php the_field('intro_text'); ?></p>
+							        			<div class="text-center pt-2">
+							        				<div class="default-btn"><a href="<?php the_permalink(); ?>"><?php echo get_text_btn($progress); ?></a></div>
+							        			</div>
 							        		</div>
 							        	</div>
 							        </div>
@@ -293,14 +296,27 @@ if($main_parcours) {
 										        		<div class="col-12 col-lg-4">
 										        			<div class="up-title">Parcours</div>
 										        			<h2><?php the_title(); ?></h2>
-										        			
-										        			<p><?php echo count(get_field('episodes')); ?> épisodes à découvrir!</p>
-										        			<p class="duration duration-white"><strong>Durée estimée : </strong><?php the_field('duration'); ?></p>
+										        			<?php if($progress['achieved'] > 0): ?>
+										        				<div id="progress-section">
+																	<div class="progress-text"><?php echo $progress['achieved'] ?> épisode<?php echo $progress['achieved'] > 1?'s':''?> terminé<?php echo $progress['achieved'] > 1?'s':''?> sur <?php echo $episodes_number; ?>
+																		<?php if($progress['completed'] == 1): ?>
+																			<span class="checkmark"></span>
+																		<?php endif; ?>
+																	</div>
+																	<div class="progress">
+																		<div class="bar" style="width:<?php echo $progress['percent']; ?>%">
+																		</div>
+																	</div>
+																</div>
+																<?php else: ?>
+												        			<p><?php echo count(get_field('episodes')); ?> épisodes à découvrir!</p>
+												        			<p class="duration duration-white"><strong>Durée estimée : </strong><?php the_field('duration'); ?></p>
+												        		<?php endif; ?>
 										        		</div>
 										        		<div class="col-12 col-lg-6">
 										        			<p><?php the_field('intro_text'); ?></p>
 										        			<div class="text-center pt-2">
-										        				<div class="default-btn"><a href="<?php the_permalink(); ?>">Démarrer</a></div>
+										        				<div class="default-btn"><a href="<?php the_permalink(); ?>"><?php echo get_text_btn($progress); ?></a></div>
 										        			</div>
 										        		</div>
 										        	</div>

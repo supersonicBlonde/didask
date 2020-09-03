@@ -373,34 +373,45 @@ footer, header {
 				height: 0;
 				width: 0;
 
-				&:checked ~ .checkmark-input:after {
+				&:checked ~ .checkmark-input:after, &:checked ~ .checkmark-input:before {
 				  display: block;
 				}
 			}
 
 			.checkmark-input {
 				position: absolute;
-				border:3px solid $color__background;
+				border:1px solid $color__background;
 				border-radius: 2px;
-				top: 0;
+				top: 3px;
 				left: 0;
 				height: 25px;
 				width: 25px;
-				background-color: transaprent;
+				background-color: transparent;
+
+				&:before {
+					position: absolute;
+				    left: 0;
+				    top: 29%;
+				    height: 50%;
+				    width: 3px;
+				    background-color: #00AAA6;
+				    content: "";
+				    transform: translateX(10px) rotate(-45deg);
+				    transform-origin: left bottom;
+				    display: none;
+				}
 
 				&:after {
-					content: "";
-					position: absolute;
 					display: none;
-					left: 9px;
-					top: 5px;
-					width: 5px;
-					height: 10px;
-					border: solid white;
-					border-width: 0 3px 3px 0;
-					-webkit-transform: rotate(45deg);
-					-ms-transform: rotate(45deg);
-					transform: rotate(45deg);
+					 position: absolute;
+				    left: 0;
+				    bottom: 3px;
+				    height: 3px;
+				    width: 100%;
+				    background-color: #00AAA6;
+				    content: "";
+				    transform: translateX(10px) rotate(-45deg);
+				    transform-origin: left bottom;
 				}
 			}
 

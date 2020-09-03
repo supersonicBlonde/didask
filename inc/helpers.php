@@ -1,5 +1,17 @@
 <?php  
+function get_text_btn($progress) {
 
+	if($progress['completed'] == 1) {
+		$text_btn = "Revoir";
+	}
+	elseif($progress['achieved'] == 0  || !isset($progress['achieved'])) {
+		$text_btn = "Démarrer";
+	}
+	else {
+		$text_btn = "Poursuivre";	
+	}
+	return $text_btn;
+}
 /**
 * Get posts and group by taxonomy terms.
 * @param string $posts Post type to get.
