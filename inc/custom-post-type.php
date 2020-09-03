@@ -97,9 +97,9 @@ function didask_episode_tax() {
 	
 	// Add new taxonomy, make it hierarchical (like categories)
 	$labels = array(
-		'name'              => __( 'Categories' ),
-		'singular_name'     => __( 'Categorie' ),
-		'menu_name'         => __( 'Catégorie'),
+		'name'              => __( 'Themes' ),
+		'singular_name'     => __( 'Theme' ),
+		'menu_name'         => __( 'Theme'),
 	);
 
 	$args = array(

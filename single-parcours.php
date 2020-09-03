@@ -6,57 +6,20 @@
 */
 
 
-
-
-$logged = is_user_logged_in();
-$completed = 0;
-
-
 global $post;
-global $wpdb;
-$id_parcours = $post->ID;
+
+
+
+// Init some variables
+$logged = is_user_logged_in();
+$episodes = get_field('episodes');
 $id_user = get_current_user_id();
-
-
-$episodes = get_field('episodes'); 
-$episodes_number = count(get_field('episodes')); 
+$id_parcours = $post->ID;
 
 
 
-/**********************************
-	STATUS 
-	************************************/
-
-// init an array where the status of episodes are gonna be stored and init at 0
-$status_ar = [];
-foreach($episodes as $episode) {
-	$status_ar[$episode->ID] = 0;
-}
-//get the status of episodes and store in status array
-$results = $wpdb->get_results("SELECT * FROM tracking WHERE id_user = $id_user AND id_parcours = $id_parcours", ARRAY_A);
-foreach($results as $r) {
- 	if($r['id_parcours'] == $id_parcours) {
- 		if(array_key_exists($r['id_episode'], $status_ar)) {
- 			$status_ar[$r['id_episode']] = intval($r['status']);
- 		}
- 	}
-}
-
-
-// we count the frequency of 0 and 1 in status array
-$count = array_count_values($status_ar);
-
-$achieved = (isset($count[1]) && ($count[1] > 0))?$count[1]:0;
-
-if($achieved == $episodes_number) {
-	$completed = 1;
-}
-
-
-$percent = round(($achieved * 100) / $episodes_number);
-
-
-// check in database how many lines haves status 1
+// get status
+$progress = get_percent_progression( $id_parcours);
 
 
 get_header();
@@ -76,17 +39,17 @@ get_header();
 							<h1 class="mt-1"><?php the_title(); ?></h1>
 							<p><?php the_field('texte_introduction_single'); ?></p>
 							<div id="progress-section">
-								<div class="progress-text"><?php echo $achieved ?> épisode<?php echo $achieved > 1?'s':''?> terminé<?php echo $achieved > 1?'s':''?> sur <?php echo $episodes_number; ?>
-									<?php if($completed == 1): ?>
+								<div class="progress-text"><?php echo $progress['achieved'] ?> épisode<?php $progress['achieved'] > 1?'s':''?> terminé<?php $progress['achieved'] > 1?'s':''?> sur <?php echo $progress['episodes_number']; ?>
+									<?php if($progress['completed'] == 1): ?>
 										<span class="checkmark"></span>
 									<?php endif; ?>
 								</div>
 								<div class="progress">
-									<div class="bar" style="width:<?php echo $percent; ?>%">
+									<div class="bar" style="width:<?php echo $progress['percent']; ?>%">
 									</div>
 								</div>
 							</div>
-							<?php if($completed == 1): ?>
+							<?php if($progress['completed'] == 1): ?>
 								<div class="completed">
 									<div>Bravo, vous avez terminé le parcours.</div>
 									<div class="default-btn"><a href="#">Poursuivre l'expérience</a></div>
@@ -188,7 +151,7 @@ get_header();
 
 				</div><!-- .episodes-list -->
 
-			</div><!-- .container -->
+
 
 
 
@@ -198,13 +161,16 @@ get_header();
 			*******************************************************/
 			 ?>
 
-			 <div class="container">
+
+
+			 	<div class="content-list">
 			 	
 			 	<?php 
 
 					foreach($episodes as $episode): 
 
 						$content = get_field('episode_content' , $episode->ID); 
+					
 						$couleur = get_field('couleur' , $episode->ID);
 
 						$status_results = $wpdb->get_row( "SELECT status FROM tracking WHERE id_user = $id_user AND id_parcours = $id_parcours AND id_episode = $episode->ID", OBJECT );
@@ -255,7 +221,7 @@ get_header();
 									<?php //save-section ?>
 									<div class="row">
 										<div class="col-12 mx-auto">
-											<div class="save-section my-5" data-episode="<?php echo $episode->ID; ?>" data-parcours="<?php echo $id_parcours; ?>">
+											<div class="save-section my-5" data-episode_saved="<?php echo $episode->ID; ?>" data-parcours="<?php echo $id_parcours; ?>">
 												<?php if($status == 0): ?>
 													<div class="text-uppercase pb-2">Vous avez terminé ?</div>
 													<div class="default-btn btn-invert"><a href="/" class="track-btn">Cliquez ici pour l'enregistrer</a></div>
@@ -277,7 +243,7 @@ get_header();
 
 				<?php endforeach; ?>
 
-
+				</div>
 				
 
 			 </div><!-- .container -->
@@ -289,7 +255,7 @@ get_header();
 
 			<?php // section autres episodes ?>
 
-			<?php $display = ($completed == 1)?'block':'none'; ?>
+			<?php $display = ($progress['completed'] == 1)?'block':'none'; ?>
 
 			<div id="parcours-secondaire" style="display:<?php echo $display; ?>">
 				
@@ -304,7 +270,7 @@ get_header();
 						<div class="row">
 							<div class="col-12">
 								<div class="up-btn">Pour explorer librement le reste de ce kit</div>
-								<div class="default-btn"><a href="#">Aller à la bibliothèque</a></div>
+								<div class="default-btn"><a href="/bibliotheque">Aller à la bibliothèque</a></div>
 							</div>
 						</div>
 				</section>

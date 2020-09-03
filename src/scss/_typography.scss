@@ -20,14 +20,7 @@ p {
 
 @media (min-width: 992px) {
 	body {
-		font-size: 16px;
-	}
-}
-
-
-@media (min-width: 992px) {
-	body {
-		font-size: 16px;
+		font-size: 14px;
 	}
 }
 
@@ -52,6 +45,7 @@ h1 {
 	font-size: 3em;
 	line-height: .9;
 	margin-bottom: .45em;
+	font-weight: 900;
 
 	@media(min-width: 768px) {
 		font-size: 5.6em;
