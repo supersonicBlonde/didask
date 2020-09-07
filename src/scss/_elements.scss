@@ -280,6 +280,10 @@ header {
 	width: 100%;
 }
 
+footer {
+	background: #211948;
+}
+
 footer, header {
 	padding: .5em 1em;
 }
@@ -292,6 +296,10 @@ footer, header {
 	background: transparent;
 }
 
+
+.um-page-account header, .um-page-login header, .um-page-password-reset header {
+	background: #211948;
+}
 /* .single-parcours header {
 	background: #211948;
 }
@@ -343,7 +351,6 @@ footer, header {
 	background: url(../../img/bg.png);
 	background-size: cover;
 	color: #FFFFFF;
-	padding-top: 5em;
 	padding-bottom: 5em;
 	
 	/* @media(min-width: 992px) {

@@ -30,7 +30,7 @@ if($main_parcours) {
 <?php if(!isset($progress) || $progress['achieved'] == 0): ?>
 	<div class="page-content">
 
-		<section id="intro" class="section text-center">
+		<section id="intro" class="section text-center under-header">
 			<div class="container">
 				<div class="row">
 					<div class="column col-lg-5 col-8 mx-auto text-center">
@@ -142,7 +142,7 @@ if($main_parcours) {
 
 	<div class="page-content">
 
-		<section id="intro" class="scroll-after text-center section">
+		<section id="intro" class="scroll-after text-center section under-header">
 			<div class="container">
 				<div class="row">
 					<div class="column col-lg-5 col-8 mx-auto text-center">

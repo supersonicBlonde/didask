@@ -31,10 +31,10 @@ get_header();
 
 	<div class="page-content" id="single-parcours">
 
-			<div id="header-single-parcours">
+			<div id="header-single-parcours" class="section under-header">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-6 col-12 my-auto scroll-after column">
+						<div class="col-lg-6 col-12 my-auto column">
 							<div class="up-title">Parcours</div>
 							<h1 class="mt-1"><?php the_title(); ?></h1>
 							<p><?php the_field('texte_introduction_single'); ?></p>
@@ -58,6 +58,13 @@ get_header();
 
 						</div>
 						<div class="col-lg-6 col-12 img-abs-container"><?php the_post_thumbnail('full'); ?></div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="scroll-next">
+								<a href="#"><img src="<?php echo get_template_directory_uri().'/img/arrow-scroll.svg'?>"></a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div><!-- #header-single-parcours -->

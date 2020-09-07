@@ -15,7 +15,7 @@ get_header();
 
 	<div class="page-content">
 
-		<div class="section">
+		<div class="section under-header">
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
