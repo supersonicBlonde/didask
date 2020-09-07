@@ -34,12 +34,12 @@ get_header();
 			<div id="header-single-parcours">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-6 col-12 my-auto scroll-after">
+						<div class="col-lg-6 col-12 my-auto scroll-after column">
 							<div class="up-title">Parcours</div>
 							<h1 class="mt-1"><?php the_title(); ?></h1>
 							<p><?php the_field('texte_introduction_single'); ?></p>
 							<div id="progress-section">
-								<div class="progress-text"><?php echo $progress['achieved'] ?> épisode<?php $progress['achieved'] > 1?'s':''?> terminé<?php $progress['achieved'] > 1?'s':''?> sur <?php echo $progress['episodes_number']; ?>
+								<div class="progress-text"><?php echo $progress['achieved'] ?> épisode<?php echo $progress['achieved'] > 1?'s':''?> terminé<?php echo $progress['achieved'] > 1?'s':''?> sur <?php echo $progress['episodes_number']; ?>
 									<?php if($progress['completed'] == 1): ?>
 										<span class="checkmark"></span>
 									<?php endif; ?>
@@ -57,7 +57,7 @@ get_header();
 							<?php endif; ?>
 
 						</div>
-						<div class="col-lg-6 col-12"><?php the_post_thumbnail('full'); ?></div>
+						<div class="col-lg-6 col-12 img-abs-container"><?php the_post_thumbnail('full'); ?></div>
 					</div>
 				</div>
 			</div><!-- #header-single-parcours -->

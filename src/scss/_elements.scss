@@ -1,6 +1,8 @@
 // BASIC ELEMENTS
 /****************************************************/
 
+
+
 #intro .row {
 	margin:2em 0;
 }
@@ -21,7 +23,7 @@ body {
 }
 
 body.home {
-	background: linear-gradient(#2f2155, #373e71);
+	background: url('../../img/bg.png');
 }
 
 #preloader {
@@ -33,6 +35,10 @@ body.home {
 
 .scale {
 	transition: all 0.5s;
+	display: flex;
+	min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
 
 	&.scaleOut {
 		transform: scale(0.99);
@@ -208,6 +214,7 @@ body.home {
 	padding-right: .4em;
 	width: 1.3em;
 	height: auto;
+	stroke: white;
 }
 
 .default-btn {
@@ -231,6 +238,10 @@ body.home {
 	width: calc(87px/2);
 	height: calc(81px/2);
 	display: inline-block;
+
+	svg {
+		stroke: white;
+	}
 
 	@media(min-width: 992px) {
 		width: 87px;
@@ -263,20 +274,48 @@ body.home {
 	margin-top: 25em;
 }
 
+header {
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
 footer, header {
 	padding: .5em 1em;
 }
 
 footer, header {
-	background: $color__background;
+	/* background: $color__background; */
 }
 
 .home header {
 	background: transparent;
 }
 
-.single-parcours header {
+/* .single-parcours header {
 	background: #211948;
+}
+ */
+.page-template-library header {
+	background:transparent;
+
+	.navbar-dark .navbar-brand, .nav-link  {
+		color: $color__background!important;
+	}
+
+	.menu-btn {
+		border-color: $color__background;
+	}
+
+	.logo svg {
+		stroke: $color__background;
+	}
+
+	.login-btn a:before {
+		content:url("../../img/user_invert.svg");
+		fill: $color__background;
+		stroke: $color__background;
+	}
 }
 
 
@@ -301,15 +340,25 @@ footer, header {
 /***************************************************/
 
 #header-single-parcours {
-	background: #211948;
+	background: url(../../img/bg.png);
+	background-size: cover;
 	color: #FFFFFF;
-	padding-top: 3em;
-	padding-bottom: 3em;
+	padding-top: 5em;
+	padding-bottom: 5em;
 	
-	@media(min-width: 992px) {
+	/* @media(min-width: 992px) {
 		padding-top: 0;
+	} */
+
+	.column {
+		padding: 10em 0;
 	}
 
+	.img-abs-container img {
+		position: absolute;
+		width:100%;
+		height: auto;
+	}
 
 	h1 {
 		font-weight: 700;

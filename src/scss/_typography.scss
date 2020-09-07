@@ -66,6 +66,16 @@ h3, .h3-sized {
 	font-weight: 600;
 }
 
+.theme-title h3 {
+	font-size: 1.2em;
+	font-family: $font__primary;
+}
+
+h4, .h4-sized {
+	font-size: 1.5em;
+	font-weight: 300;
+}
+
 
 .site-title {
 	font-size: .6em;

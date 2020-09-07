@@ -236,7 +236,23 @@ if($main_parcours) {
 									</div>
 								</div>
 							</div>
-		
+							<?php if($progress['completed'] == 1): ?>
+									<section id="intro" class="text-center">
+										<div class="container">
+											<div class="row">
+												<div class="column col-lg-4 col-8 mx-auto text-center">
+													<h1>Bravo !</h1>
+													<p>Avec ce premier parcours terminé, votre équipe a déjà fait un grand pas en avant. La suite de l’histoire s’écrit essentiellement dans votre quotidien, en essayant d’appliquer ce que vous avez appris ensemble.</p>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-12">
+													<div class="up-btn">Pour explorer librement le reste de ce kit</div>
+													<div class="default-btn"><a href="/bibliotheque">Aller à la bibliothèque</a></div>
+												</div>
+											</div>
+									</section>
+							<?php endif; ?>
 					    <?php endwhile; ?>
 					    
 		

@@ -24,7 +24,7 @@ get_header();
 				</div>
 				<div class="row">
 					<div class="col-12">
-						Explorez toutes les ressources disponibles et expérimentez à votre guise !
+						<h2 class="h4-sized">Explorez toutes les ressources disponibles et expérimentez à votre guise !</h2>
 					</div>
 				</div>
 			</div>
@@ -45,7 +45,7 @@ get_header();
 							<div class="col-12">
 								<div class="theme-title">
 									<img src="<?php echo get_field('icone' , 'episode-category_'.$episode['term']['id']); ?>">
-									<div>Tous les épisodes sur le thème : <?php echo $episode['term']['name']; ?></div>
+									<h3 class="text-uppercase">Tous les épisodes sur le thème : <?php echo $episode['term']['name']; ?></h3>
 								</div>	
 							</div><!-- .col-12 -->
 						</div><!-- .row -->
