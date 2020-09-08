@@ -31,6 +31,7 @@ function didask_load_scripts(){
 
 	wp_enqueue_script( 'matchheight', '//cdnjs.cloudflare.com/ajax/libs/jquery.matchHeight/0.7.0/jquery.matchHeight-min.js', array('jquery'), '', true );
 
+	wp_enqueue_script( 'bootstrap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', array('jquery'), '', true );
 
 	wp_enqueue_script( 'js', get_template_directory_uri().'/dist/js/scripts.min.js', array('jquery'), '', true );
 

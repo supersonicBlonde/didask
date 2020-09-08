@@ -52,7 +52,7 @@ get_header();
 							<?php if($progress['completed'] == 1): ?>
 								<div class="completed">
 									<div>Bravo, vous avez terminé le parcours.</div>
-									<div class="default-btn"><a href="#">Poursuivre l'expérience</a></div>
+									<div class="default-btn"><a href="/">Poursuivre l'expérience</a></div>
 								</div>
 							<?php endif; ?>
 
@@ -99,6 +99,7 @@ get_header();
 						SECTION EPISODES LIST
 			*******************************************************/
 			 ?>
+			
 			<div class="container">
 				
 				<div class="episodes-list" class="section">
@@ -206,7 +207,7 @@ get_header();
 								<div  class="content-episode">
 
 
-									<div style="background:<?php echo $couleur; ?>" class="p-5">
+									<div style="background:<?php echo $couleur; ?>" class="py-5 px-lg-5">
 										
 										<?php //inside bloc ?>
 										<div class="row">

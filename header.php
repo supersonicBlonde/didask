@@ -11,8 +11,8 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 	<head>
-		<title><?php bloginfo('name'); wp_title(); ?></title>
-		<meta name="description" content="<?php bloginfo('description'); ?>">
+		<title><?php wp_title(); ?></title>
+		<meta name="description" content="">
 		<meta charset="<?php bloginfo( 'charset' ); ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 				<link rel="profile" href="http://gmpg.org/xfn/11">
@@ -36,7 +36,7 @@
           <?php wp_nav_menu( array(
           'theme_location'  => 'primary',
           'container'       => false,
-          'menu_class'      => 'navbar-nav ml-auto',
+          'menu_class'      => 'navbar-nav ml-lg-auto',
           'walker'          => new wp_bootstrap_navwalker(),
           ) ); ?>
         <!-- <ul class="navbar-nav ml-auto">

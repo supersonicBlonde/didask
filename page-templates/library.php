@@ -49,6 +49,7 @@ get_header();
 								</div>	
 							</div><!-- .col-12 -->
 						</div><!-- .row -->
+
 						<div class="row">
 							<div class="col-12">
 
@@ -117,7 +118,7 @@ get_header();
 																	<div  class="content-episode">
 
 
-																		<div style="background:<?php echo $couleur; ?>" class="p-5">
+																		<div style="background:<?php echo $couleur; ?>" class="my-2 py-5 px-lg-5">
 																			
 																			<?php //inside bloc ?>
 																			<div class="row">

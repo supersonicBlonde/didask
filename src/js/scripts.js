@@ -224,7 +224,93 @@ function navbarAnimate(el) {
 	});
 }
 
+
+//*******************************************************
+//				JS RESPONSIVE
+//*******************************************************
+
+function on_click_save_section(pos, event) {
+	event.preventDefault();
+	let parent = event.target.parentElement.parentElement;
+	if(event.target.className == "track-btn") {
+		let id_parcours = parent.dataset.parcours;
+		let id_episode = parent.dataset.episode_saved;
+		console.log("track pos",pos,"parcours",id_parcours,"episode", id_episode);
+		save_progression(pos, id_parcours , id_episode);
+	}
+	else if(event.target.className == "cancel-track") {
+		if(!confirm("Etes-vous sûr de vouloir annuler ?")) 
+			return;			  		
+		let id_parcours = parent.dataset.parcours;
+		let id_episode = parent.dataset.episode_saved;
+		console.log("cancel pos",pos,"parcours",id_parcours,"episode", id_episode);
+		cancel_progression(pos, id_parcours , id_episode);
+	}
+}
+
+
+
+function clone_element(ar_blocs, pos) {
+	let clone = ar_blocs[pos].cloneNode(true);
+	console.log(clone);
+	clone.style.display = "block";
+	
+	return clone;
+}
+
+
+
+function insert_clone(parentNode, newNode, ar, referenceNode) {
+	let clone = parentNode.insertBefore(newNode, ar[referenceNode]);
+	clone.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+	return clone;
+}
+
+
+function display_content_sm(pos, episode_container, ar_blocs, ar) {
+	
+	let clone = clone_element(ar_blocs, pos);
+
+	insert_clone(episode_container, clone, ar, pos+1);
+	
+	//let ar_all = document.querySelectorAll('.save-section');
+	clone.querySelector('.save-section').addEventListener('click' , event => {
+
+		on_click_save_section(pos, event);
+		
+	});
+}
+
+
+function display_content_lg(pos, episode_container, ar_blocs, ar) {
+	  // if there is more than 3 episodes, the bloc will appear in the middle
+	   // so get the number of episodes 
+	   let count_children = episode_container.childElementCount;
+	   console.log("count children", count_children);
+
+	   if(count_children > 3 && pos < 3) { 
+	   		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	   		// cloning won't keep event listeners
+	   		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	   		let clone = clone_element(ar_blocs, pos);
+	   		insert_clone(episode_container, clone, ar, 3);
+	    	
+	    	//let ar_all = document.querySelectorAll('.save-section');
+	   		clone.querySelector('.save-section').addEventListener('click' , event => {
+	   			on_click_save_section(pos, event);
+	   			
+	   		});
+	    }
+	    else {
+	    	// show the block episode content
+			ar_blocs[pos].style.display = "block";	
+	    }
+}
+
 var callback = function() {
+
+	var x992 = window.matchMedia("(min-width: 992px)")
+
 
 	let scroll_btn = document.querySelectorAll('.scroll-next a');
 
@@ -240,21 +326,23 @@ var callback = function() {
 	// MENU HAMBURGER
 	//****************************************
 	
-	/*let toggler = document.querySelector('.navbar-toggler');
+	let toggler  = document.querySelector('.navbar-toggler');
 	let collapse = document.getElementById('navbarNav');
+	let header   = document.getElementById("header-container");
 
 
 	toggler.addEventListener('click' , function(event) {
 		if (collapse.classList.contains('show')) {
-    		collapse.classList.remove('show'); 
-    		document.getElementById('header-container').classList.remove('open');
+			console.log('close');
+    		/*collapse.classList.remove('show'); */
+    		header.classList.remove('open');
 		}
 		else {
-			collapse.classList.add('show');
-			document.getElementById('header-container').classList.add('open');
-			navbarAnimate(collapse);
+			/*collapse.classList.add('show');*/
+			header.classList.add('open');
+			console.log('open');
 		}
-	});*/
+	});
 
 	/******************************************/
 
@@ -267,6 +355,7 @@ var callback = function() {
   document.querySelectorAll('.episode-item').forEach(item => {
 	  item.addEventListener('click', event => {
 	  	
+	  	console.log("resp", x992.matches);
 
 	  	// Get parent of item (episode-list) to determine the list 
 		let episode_container = item.parentElement;
@@ -285,25 +374,31 @@ var callback = function() {
 	  	// add the style on episode selected
 	  	item.classList.add('selected');
 	  	
-	  	// get the colro of the episode
+	  	// get the color of the episode
 	  	let colored = item.querySelector('.colored');
 	  	let color = colored.dataset.color;
 	  	// and add the colored triangle
 	  	colored.pseudoStyle("after","border-top-color",color+'!important');
 
-
+	  	
 	  	// get the position of the episode
 	    let pos = get_index(item, ar); 
 	    console.log("pos", pos);
-
+		
+		if(x992.matches) {
+	  		display_content_lg(pos , episode_container, ar_blocs, ar);
+	  	}
+	  	else {
+	  		display_content_sm(pos , episode_container, ar_blocs, ar);	
+	  	}
 	       
 
 	   // if there is more than 3 episodes, the bloc will appear in the middle
 	   // so get the number of episodes 
-	   let count_children = episode_container.childElementCount;
-	   console.log("count children", count_children);
+	   /*let count_children = episode_container.childElementCount;
+	   console.log("count children", count_children);*/
 
-	   if(count_children > 3 && pos < 3) { 
+	  /* if(count_children > 3 && pos < 3) { 
 	   		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	   		// cloning won't keep event listeners
 	   		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -316,7 +411,6 @@ var callback = function() {
 	   			event.preventDefault();
  				let parent = event.target.parentElement.parentElement;
 	  			if(event.target.className == "track-btn") {
-
 			  	   // let pos = get_index(item, ar_all); 
 			  	  
 			  		let id_parcours = parent.dataset.parcours;
@@ -341,7 +435,7 @@ var callback = function() {
 	    else {
 	    	// show the block episode content
 			ar_blocs[pos].style.display = "block";	
-	    }
+	    }*/
 	  })
 	})
 

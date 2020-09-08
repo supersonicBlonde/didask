@@ -33,9 +33,13 @@ if($main_parcours) {
 		<section id="intro" class="section text-center under-header">
 			<div class="container">
 				<div class="row">
-					<div class="column col-lg-5 col-8 mx-auto text-center">
+					<div class="column col-l2 mx-auto text-center">
 						<h1><?php echo $section_intro['title']; ?></h1>
-						<p><?php echo $section_intro['paragraphe'] ?></p>
+					</div>
+					<div class="row">
+						<div class="column col-lg-6 col-8 mx-auto text-center">
+							<p><?php echo $section_intro['paragraphe'] ?></p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -103,8 +107,8 @@ if($main_parcours) {
 					    		<div class="col-12">
 							        <div class="parcours-item">
 							        	<div class="row">
-							        		<div class="col-12 col-lg-3">
-							        			<img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="" style="position:absolute;width:100%;">
+							        		<div class="col-12 col-lg-3 img-abs-container">
+							        			<img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="">
 							        		</div>
 							        		<div class="col-12 col-lg-4">
 							        			<div class="up-title">Parcours</div>
@@ -145,9 +149,13 @@ if($main_parcours) {
 		<section id="intro" class="scroll-after text-center section under-header">
 			<div class="container">
 				<div class="row">
-					<div class="column col-lg-5 col-8 mx-auto text-center">
+					<div class="column col-12 mx-auto text-center">
 						<h1><?php echo $section_intro['title']; ?></h1>
-						<p><?php echo $section_intro['paragraphe'] ?></p>
+					</div>
+					<div class="row">
+						<div class="column col-lg-5 col-8 mx-auto text-center">
+							<p><?php echo $section_intro['paragraphe'] ?></p>
+						</div>
 					</div>
 				</div>
 				<div class="row">
@@ -201,7 +209,7 @@ if($main_parcours) {
 					    		<div class="col-12">
 							        <div class="parcours-item">
 							        	<div class="row">
-							        		<div class="col-12 col-lg-2">
+							        		<div class="col-12 col-lg-2 img-abs-container">
 							        			<?php the_post_thumbnail('full'); ?>
 							        		</div>
 							        		<div class="col-12 col-lg-4">
@@ -285,7 +293,7 @@ if($main_parcours) {
 								$args = array(
 									'post_type' 		=> 'parcours',
 									'posts_per_page'    => -1,
-									//'post__not_in' => array($main_parcours['id_parcours']) 
+									'post__not_in' => array($main_parcours['id_parcours']) 
 								);
 								
 								$query_parcours = new WP_Query( $args );
@@ -306,7 +314,7 @@ if($main_parcours) {
 								    		<div class="col-12">
 										        <div class="parcours-item">
 										        	<div class="row">
-										        		<div class="col-12 col-lg-2">
+										        		<div class="col-12 col-lg-2 img-abs-container">
 										        			<?php the_post_thumbnail('full'); ?>
 										        		</div>
 										        		<div class="col-12 col-lg-4">
