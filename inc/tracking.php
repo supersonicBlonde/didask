@@ -1,5 +1,18 @@
 <?php
 
+add_action( 'wp_ajax_nopriv_get_progress_bar', 'get_progress_bar' );
+add_action( 'wp_ajax_get_progress_bar', 'get_progress_bar' ); 
+
+function get_progress_bar() {
+
+	$id_parcours = $_POST['parcours'];
+
+	echo json_encode(get_percent_progression($id_parcours));
+
+	wp_die();
+}
+
+
 // return the staus of progress (percent, completed, number of episodes achieved)
 function get_percent_progression( $id_parcours) {
 

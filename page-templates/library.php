@@ -58,7 +58,7 @@ get_header();
 										EPISODES LIST 
 								************************/
 								?>
-								<div class="episodes-list" class="section">
+								<div class="episodes-list section library">
 									<?php foreach($episode['episodes'] as $key): 
 										$args = array('post_type' => 'episodes' , 'p' => $key); 
 										$query_episode = new WP_Query( $args );
@@ -72,6 +72,31 @@ get_header();
 													?>
 
 													<div class="episode-item mb-5" data-episode="<?php echo the_ID(); ?>">
+
+														<?php
+															$id_user = get_current_user_id();
+															$episode_id = get_the_ID();
+															$status_results = $wpdb->get_row( "SELECT status FROM tracking WHERE id_user = $id_user AND  id_episode = $episode_id", OBJECT );
+
+															$checked = "";
+															$label = "A découvrir";
+													
+
+															if(isset($status_results->status) && $status_results->status == '1') {
+
+																$checked = 'checked="checked"';
+																$label = 'Terminé';
+															}
+												
+
+															?>
+
+														<div class="checkbox-discover">
+															<label  for="progress"><span class="text-label"><?php echo $label; ?></span>
+															  <input type="checkbox" name="progress" value="" disabled <?php echo $checked; ?>>
+															  <span class="checkmark-input"></span>
+															</label>
+														</div>
 
 														<div style="background-color:<?php echo $couleur; ?>" class="colored p-5" data-color="<?php echo $couleur; ?>">
 

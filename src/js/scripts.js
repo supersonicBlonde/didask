@@ -27,6 +27,54 @@ HTMLElement.prototype.pseudoStyle = function(element,prop,value){
 
 
 /**********************************************************************************/
+function update_progress_bar(id_parcours) {
+	console.log(id_parcours);
+	jQuery.ajax({
+		url : ajax_js_obj.ajax_url,
+		dataType: 'json',
+		type : 'post',
+		data : {
+			action : 'get_progress_bar', 
+			parcours: id_parcours, 
+			submitted_nonce : ajax_js_obj.the_nonce,
+		},
+		
+		success : function( response ) { 
+			let completed = response['completed'];
+			let percent = response['percent'];
+			let achieved = response['achieved'];
+			let episodes_number = response['episodes_number'];
+
+			let text = document.getElementById('progress-text');
+			let checkmark = document.getElementById('checkmark');
+			let bar = document.getElementById('bar');
+			let completed_div = document.getElementById('completed');
+
+			let progress_text = achieved + ' épisode' + (achieved > 1?'s':'') + ' terminé' + (achieved > 1?'s':'') + ' sur ' + episodes_number;
+			text.innerHTML = progress_text;
+
+			if(completed == 1) {
+				checkmark.style.display = "inline";
+				completed_div.style.display = "block";
+			} 
+			else {
+				checkmark.style.display = "none";
+				completed_div.style.display = "none";
+			}
+			console.log("percent",percent);
+			bar.style.width = percent+'%';
+
+			
+		},
+		complete:function(data){
+	    	//document.getElementById('preloader').classList.add('hide');
+	   },
+		error : function( response ) {
+			console.log('Error retrieving the information: ' + response.status + ' ' + response.statusText);
+			//console.log( response );
+		}
+	});
+}
 
 function set_preloader(state) {
 
@@ -60,9 +108,6 @@ function set_overlay(state) {
 	}
 }
 
-
-
-
 function get_index(elt, ar) {
 	return Array.prototype.indexOf.call(ar, elt);
            /* let parent = elt.parentNode; 
@@ -82,14 +127,12 @@ function hide_all_modules(ar_episodes, ar_blocs) {
 	ar_episodes.forEach(item => {
 		item.classList.remove('selected');
 	});
-
 }
  
 function close() {
 	 let ar_blocs = document.querySelectorAll('.content-episode-container');
 	 remove_all_modules(ar, ar_blocs);
 }
-
 
 function save_progression(index, id_parcours , id_episode) {
 
@@ -110,8 +153,6 @@ function save_progression(index, id_parcours , id_episode) {
 		},
 		
 		success : function( response ) { 
-
-		
 
 			if(response['insert'] === 1) {
 				console.log('response.ok');
@@ -140,7 +181,7 @@ function save_progression(index, id_parcours , id_episode) {
 					parcours_secondaire.style.display = 'block';
 					parcours_secondaire.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
 				}
-				//update_progress_bar();
+				update_progress_bar(id_parcours);
 			}
 		},
 		complete:function(data){
@@ -195,7 +236,7 @@ function cancel_progression(index, id_parcours , id_episode) {
 				let cb_container = episode_ar[index].querySelector('.checkbox-discover'); */
 				cb_container.querySelector('input').checked = false;
 				cb_container.querySelector('.text-label').innerHTML = "A découvrir";
-				//update_progress_bar();
+				update_progress_bar(id_parcours);
 			}
 		},
 		complete:function(data){
@@ -287,14 +328,16 @@ function display_content_lg(pos, episode_container, ar_blocs, ar) {
 	   // so get the number of episodes 
 	   let count_children = episode_container.childElementCount;
 	   console.log("count children", count_children);
+	   let index = 3;
+	   if(episode_container.classList.contains('library')) index = 4;
 
-	   if(count_children > 3 && pos < 3) { 
+	   if(count_children > index && pos < index) { 
 	   		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	   		// cloning won't keep event listeners
 	   		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	   		let clone = clone_element(ar_blocs, pos);
-	   		insert_clone(episode_container, clone, ar, 3);
-	    	
+	   		insert_clone(episode_container, clone, ar, index);
+	    	 
 	    	//let ar_all = document.querySelectorAll('.save-section');
 	   		clone.querySelector('.save-section').addEventListener('click' , event => {
 	   			on_click_save_section(pos, event);
@@ -446,7 +489,7 @@ var callback = function() {
   		item.addEventListener('click' , event => {
   			event.preventDefault();
   			if(event.target.className == "track-btn") {
-
+  				console.log("clicked");
 		  	    let pos = get_index(item, ar); 
 		  	    
 		  		let id_parcours = item.dataset.parcours;

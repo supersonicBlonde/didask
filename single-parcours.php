@@ -39,22 +39,20 @@ get_header();
 							<h1 class="mt-1"><?php the_title(); ?></h1>
 							<p><?php the_field('texte_introduction_single'); ?></p>
 							<div id="progress-section">
-								<div class="progress-text"><?php echo $progress['achieved'] ?> épisode<?php echo $progress['achieved'] > 1?'s':''?> terminé<?php echo $progress['achieved'] > 1?'s':''?> sur <?php echo $progress['episodes_number']; ?>
-									<?php if($progress['completed'] == 1): ?>
-										<span class="checkmark"></span>
-									<?php endif; ?>
+								<div class="progress-text" id="progress-text"><?php echo $progress['achieved'] ?> épisode<?php echo $progress['achieved'] > 1?'s':''?> terminé<?php echo $progress['achieved'] > 1?'s':''?> sur <?php echo $progress['episodes_number']; ?>
+									<?php $display = $progress['completed'] == 1?'inline':'none'; ?>
 								</div>
+								<span class="checkmark" id="checkmark" style="display:<?php echo $display; ?>"></span>
 								<div class="progress">
-									<div class="bar" style="width:<?php echo $progress['percent']; ?>%">
+									<div class="bar"id="bar" style="width:<?php echo $progress['percent']; ?>%">
 									</div>
 								</div>
 							</div>
-							<?php if($progress['completed'] == 1): ?>
-								<div class="completed">
+							<?php $display = $progress['completed'] == 1?'inline':'none'; ?>
+								<div class="completed" id="completed" style="display: <?php echo $display; ?>">
 									<div>Bravo, vous avez terminé le parcours.</div>
 									<div class="default-btn"><a href="/">Poursuivre l'expérience</a></div>
 								</div>
-							<?php endif; ?>
 
 						</div>
 						<div class="col-lg-6 col-12 img-abs-container"><?php the_post_thumbnail('full'); ?></div>
@@ -238,7 +236,7 @@ get_header();
 											<div class="save-section my-5" data-episode_saved="<?php echo $episode->ID; ?>" data-parcours="<?php echo $id_parcours; ?>">
 												<?php if($status == 0): ?>
 													<div class="text-uppercase pb-2">Vous avez terminé ?</div>
-													<div class="default-btn btn-invert"><a href="/" class="track-btn">Cliquez ici pour l'enregistrer</a></div>
+													<div class="default-btn btn-invert"><a href="#" class="track-btn">Cliquez ici pour l'enregistrer</a></div>
 												<?php else: ?>
 													<div class="text-uppercase pb-2">Vous avez déja fait ce module</div>
 													<div><a href="#" class="cancel-track">Annuler</a></div>
