@@ -30,27 +30,8 @@ if($main_parcours) {
 <?php if(!isset($progress) || $progress['achieved'] == 0): ?>
 	<div class="page-content">
 
-		<section id="intro" class="section text-center under-header">
-			<div class="container">
-				<div class="row">
-					<div class="column col-l2 mx-auto text-center">
-						<h1><?php echo $section_intro['title']; ?></h1>
-					</div>
-					<div class="row">
-						<div class="column col-lg-6 col-8 mx-auto text-center">
-							<p><?php echo $section_intro['paragraphe'] ?></p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-12">
-					<div class="scroll-next text-center">
-						<a href="#"><img src="<?php echo get_template_directory_uri().'/img/arrow-scroll.svg'?>"></a>
-					</div>
-				</div>
-			</div>
-		</section>
+		<?php  get_template_part( 'template-parts/content', 'intro', $section_intro ); ?>
+
 
 		<div id="home-section-2" class="section center">
 			<div class="container">
@@ -61,13 +42,6 @@ if($main_parcours) {
 					<div class="col-12 col-lg-5 column my-auto">
 						<h2 class="h3-sized text-uppercase"><?php echo $section_2col['titre'] ?></h2>
 						<p><?php echo $section_2col['paragraphe'] ?></p>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-12">
-						<div class="scroll-next text-center">
-							<a href="#"><img src="<?php echo get_template_directory_uri().'/img/arrow-scroll.svg'?>"></a>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -102,31 +76,16 @@ if($main_parcours) {
 					    <?php 
 		
 					    while ( $query_parcours->have_posts() ):
-					        $query_parcours->the_post(); ?>
-					    	<div class="row">
-					    		<div class="col-12">
-							        <div class="parcours-item">
-							        	<div class="row">
-							        		<div class="col-12 col-lg-3 img-abs-container">
-							        			<img src="<?php echo get_the_post_thumbnail_url(); ?>" alt="">
-							        		</div>
-							        		<div class="col-12 col-lg-4">
-							        			<div class="up-title">Parcours</div>
-							        			<h2><?php the_title(); ?></h2>
-							        			<p><?php echo count(get_field('episodes')); ?> épisodes à découvrir!</p>
-							        			<p class="duration duration-white"><strong>Durée estimée : </strong><?php the_field('duration'); ?></p>
-							        		</div>
-							        		<div class="col-12 col-lg-5">
-							        			<p><?php the_field('intro_text'); ?></p>
-							        			<div class="text-center pt-2">
-							        				<div class="default-btn"><a href="<?php the_permalink(); ?>">Démarrer</a></div>
-							        			</div>
-							        		</div>
-							        	</div>
-							        </div>
-						    	</div>
-						    </div>
-					    
+					        $query_parcours->the_post(); 
+
+					       $args = array(
+					       	'number_of_episodes' 	=> count(get_field('episodes')),
+					       	'duration'   		 	=> get_field('duration'),
+					       	'intro_text' 			=> get_field('intro_text')
+					       );
+
+					        get_template_part('template-parts/content' , 'parcours' , $args); ?>
+
 		
 					    <?php endwhile; ?>
 					    
@@ -146,27 +105,7 @@ if($main_parcours) {
 
 	<div class="page-content">
 
-		<section id="intro" class="scroll-after text-center section under-header">
-			<div class="container">
-				<div class="row">
-					<div class="column col-12 mx-auto text-center">
-						<h1><?php echo $section_intro['title']; ?></h1>
-					</div>
-					<div class="row">
-						<div class="column col-lg-5 col-8 mx-auto text-center">
-							<p><?php echo $section_intro['paragraphe'] ?></p>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-12">
-						<div class="scroll-next text-center">
-							<a href="#"><img src="<?php echo get_template_directory_uri().'/img/arrow-scroll.svg'?>"></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+		<?php  get_template_part( 'template-parts/content', 'intro', $section_intro ); ?>
 
 
 		<div class="section">
@@ -204,46 +143,21 @@ if($main_parcours) {
 					        $episodes = get_field('episodes' , $main_parcours['id_parcours']);
 					        
 					        $episodes_number = count($episodes);
-					        $progress = get_percent_progression( $main_parcours['id_parcours']); ?>
-					    	<div class="row">
-					    		<div class="col-12">
-							        <div class="parcours-item">
-							        	<div class="row">
-							        		<div class="col-12 col-lg-2 img-abs-container">
-							        			<?php the_post_thumbnail('full'); ?>
-							        		</div>
-							        		<div class="col-12 col-lg-4">
-							        			<div class="up-title">Parcours</div>
-							        			<h2><?php the_title(); ?></h2>
-							        			<div id="progress-section">
-													<div class="progress-text"><?php echo $progress['achieved'] ?> épisode<?php echo $progress['achieved'] > 1?'s':''?> terminé<?php echo $progress['achieved'] > 1?'s':''?> sur <?php echo $episodes_number; ?>
-														<?php if($progress['completed'] == 1): ?>
-															<span class="checkmark"></span>
-														<?php endif; ?>
-													</div>
-													<div class="progress">
-														<div class="bar" style="width:<?php echo $progress['percent']; ?>%">
-														</div>
-													</div>
-												</div>
-							        		</div>
-							        		<div class="col-12 col-lg-6">
-							        			<p><?php the_field('intro_text'); ?></p>
-							        			<div class="text-center pt-2">
-							        				<div class="default-btn"><a href="<?php the_permalink(); ?>"><?php echo get_text_btn($progress); ?></a></div>
-							        			</div>
-							        		</div>
-							        	</div>
-							        </div>
-						    	</div>
-						    </div>
-					    	<div class="row">
-								<div class="col-12">
-									<div class="scroll-next text-center m-3">
-										<a href="#"><img src="<?php echo get_template_directory_uri().'/img/arrow-scroll.svg'?>"></a>
-									</div>
-								</div>
-							</div>
+					        $progress = get_percent_progression( $main_parcours['id_parcours']); 
+					        
+
+
+					        $args = array(
+					        	'progress' 				=> $progress,
+					        	'number_of_episodes' 	=> $episodes_number,
+					        	'intro_text'			=> get_field('intro_text')
+					        );
+
+					        get_template_part('template-parts/content' , 'parcours-logged' , $args);
+
+					        ?>
+					    	
+					    	
 							<?php if($progress['completed'] == 1): ?>
 									<section id="intro" class="text-center">
 										<div class="container">
@@ -308,45 +222,21 @@ if($main_parcours) {
 								    while ( $query_parcours->have_posts() ):
 								        $query_parcours->the_post(); 
 
+								        // get list of episodes
+								        $episodes = get_field('episodes');
+								        
+								        $episodes_number = count($episodes);
+
 								        $progress = get_percent_progression(get_the_ID());
-								        ?>
-								    	<div class="row">
-								    		<div class="col-12">
-										        <div class="parcours-item">
-										        	<div class="row">
-										        		<div class="col-12 col-lg-2 img-abs-container">
-										        			<?php the_post_thumbnail('full'); ?>
-										        		</div>
-										        		<div class="col-12 col-lg-4">
-										        			<div class="up-title">Parcours</div>
-										        			<h2><?php the_title(); ?></h2>
-										        			<?php if($progress['achieved'] > 0): ?>
-										        				<div id="progress-section">
-																	<div class="progress-text"><?php echo $progress['achieved'] ?> épisode<?php echo $progress['achieved'] > 1?'s':''?> terminé<?php echo $progress['achieved'] > 1?'s':''?> sur <?php echo $episodes_number; ?>
-																		<?php if($progress['completed'] == 1): ?>
-																			<span class="checkmark"></span>
-																		<?php endif; ?>
-																	</div>
-																	<div class="progress">
-																		<div class="bar" style="width:<?php echo $progress['percent']; ?>%">
-																		</div>
-																	</div>
-																</div>
-																<?php else: ?>
-												        			<p><?php echo count(get_field('episodes')); ?> épisodes à découvrir!</p>
-												        			<p class="duration duration-white"><strong>Durée estimée : </strong><?php the_field('duration'); ?></p>
-												        		<?php endif; ?>
-										        		</div>
-										        		<div class="col-12 col-lg-6">
-										        			<p><?php the_field('intro_text'); ?></p>
-										        			<div class="text-center pt-2">
-										        				<div class="default-btn"><a href="<?php the_permalink(); ?>"><?php echo get_text_btn($progress); ?></a></div>
-										        			</div>
-										        		</div>
-										        	</div>
-										        </div>
-									    	</div>
-									    </div>
+
+								         $args = array(
+								        	'progress' 				=> $progress,
+								        	'number_of_episodes' 	=> $episodes_number,
+								        	'intro_text'			=> get_field('intro_text')
+								        );
+
+								        get_template_part('template-parts/content' , 'parcours-logged' , $args); ?>
+								    	
 								    
 					
 								    <?php endwhile; ?>

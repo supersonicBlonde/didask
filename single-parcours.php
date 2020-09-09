@@ -114,7 +114,7 @@ get_header();
 
 
 
-					<div class="episode-item mb-5" data-episode="<?php echo $episode->ID; ?>">
+					<div class="episode-item mb-5" data-episode="<?php echo $episode->ID; ?>" style="background-color:<?php echo $couleur; ?>">
 
 						<?php
 
@@ -132,7 +132,7 @@ get_header();
 			
 
 						?>
-						<div class="checkbox-discover">
+						<div class="checkbox-discover" style="background: white;">
 							<label  for="progress"><span class="text-label"><?php echo $label; ?></span>
 							  <input type="checkbox" name="progress" value="" disabled <?php echo $checked; ?>>
 							  <span class="checkmark-input"></span>
@@ -143,12 +143,12 @@ get_header();
 							<input type="checkbox" ><label class="pl-2" for="progress"> <?php echo $label; ?></label>
 						</div> --><!-- .checkbox-discover -->
 
-						<div style="background-color:<?php echo $couleur; ?>" class="colored p-5" data-color="<?php echo $couleur; ?>">
+						<div class="colored p-5" data-color="<?php echo $couleur; ?>">
 
-							<div class="icone mb-5"><img src="<?php echo $icone; ?>"></div>
+							<!-- <div class="icone mb-5"><img src="<?php echo $icone; ?>"></div> -->
 
-							<p class="mb-0"><?php echo $description; ?></p>
-							<h2 class="mt-0"><?php echo $episode->post_title; ?></h2>
+							<p class="mb-0"><img class="icone-episode pr-2" src="<?php echo $icone; ?>"><?php echo $description; ?></p>
+							<h2 class="mt-2 text-uppercase episode-title"><?php echo $episode->post_title; ?></h2>
 
 						</div><!-- .colored -->
 
