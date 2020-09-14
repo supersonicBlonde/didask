@@ -1,4 +1,4 @@
-<section class="intro" class="section text-center">
+<section class="intro section text-center under-header">
 	<div class="container">
 		<div class="row">
 			<div class="column col-l2 mx-auto text-center">
@@ -6,7 +6,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="column col-lg-4 col-8 mx-auto text-center">
+			<div class="column col-lg-5 col-8 mx-auto text-center">
 				<p><?php echo $args['paragraphe'] ?></p>
 			</div>
 		</div>

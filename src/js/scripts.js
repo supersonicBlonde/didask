@@ -114,6 +114,42 @@ function get_index(elt, ar) {
              return Array.prototype.indexOf.call(parent.children, elt); */
 }
 
+function getIndexOf_multi_dim_array(ar, needle){
+    if (!ar){
+        return [];
+    }
+    
+    for(var i=0; i<ar.length; i++){
+        var index = ar[i].indexOf(needle);
+        if (index > -1){
+            return [i, index];
+        }
+    }
+    
+    return [];
+}
+
+
+function slice_array_by_chunk(ar, chunk) {
+	
+	let new_ar = [];
+	let subset;
+	for (var i=0; i < ar.length; i += chunk) {
+    	subset = ar.slice(i, i+chunk);
+  		new_ar.push(subset);
+	}
+	return new_ar;
+	   
+}
+
+function fade_all_episodes(current, episodes) {
+	episodes.forEach(item => {
+		if(item != current) {
+			item.style.opacity = .5;
+		}
+	})
+}
+
 function hide_all_modules(ar_episodes, ar_blocs) {
 
 	ar_blocs.forEach(item => {
@@ -126,6 +162,7 @@ function hide_all_modules(ar_episodes, ar_blocs) {
 
 	ar_episodes.forEach(item => {
 		item.classList.remove('selected');
+		item.style.opacity = 1;
 	});
 }
  
@@ -291,6 +328,7 @@ function on_click_save_section(pos, event) {
 
 
 
+
 function clone_element(ar_blocs, pos) {
 	let clone = ar_blocs[pos].cloneNode(true);
 	console.log(clone);
@@ -308,11 +346,41 @@ function insert_clone(parentNode, newNode, ar, referenceNode) {
 }
 
 
-function display_content_sm(pos, episode_container, ar_blocs, ar) {
-	
-	let clone = clone_element(ar_blocs, pos);
+/*function display_content_sm(breakpoint, pos, episode_container, ar_blocs, ar) {
 
-	insert_clone(episode_container, clone, ar, pos+1);
+	 let count_children = episode_container.childElementCount;
+	   console.log("count children", count_children);
+	   console.log("nb rows", Math.ceil(count_children/2));
+	   let copy = [];
+	   
+		const chunk = 2;
+		let subset;
+
+		for (var i=0; i < count_children; i += chunk) {
+		    subset = myArray.slice(i, i+chunk);
+		  copy.push(subset);
+		}
+
+		console.log("copyindew",copy.findIndex(3));
+
+	
+	console.log("ar",ar);
+	let clone = clone_element(ar_blocs, pos);
+	let index = 0;
+	console.log(breakpoint);
+
+	switch(breakpoint) {
+
+		case 576:
+		 index = (pos  % 2 == 0)?(pos+2):(pos+1);
+		 break;
+
+		 case 768:
+		 index = 3;
+		 break;
+	}
+	console.log("index",);
+	insert_clone(episode_container, clone, ar, pos);
 	
 	//let ar_all = document.querySelectorAll('.save-section');
 	clone.querySelector('.save-section').addEventListener('click' , event => {
@@ -320,39 +388,99 @@ function display_content_sm(pos, episode_container, ar_blocs, ar) {
 		on_click_save_section(pos, event);
 		
 	});
-}
-
+}*/
+ 
 
 function display_content_lg(pos, episode_container, ar_blocs, ar) {
+
+	console.log("ar_blocs" , ar_blocs);
+
+	var xsm = window.matchMedia("(max-width: 576px)");
+	var x768 = window.matchMedia("(min-width: 768px)");
+	var x576 = window.matchMedia("(min-width: 576px)");
+	var x1200 = window.matchMedia("(min-width: 1200px)");
+	let chunk = 4;
+
+	console.log("resp",x768.matches);
+
+	if(xsm.matches) {
+		chunk = 1;
+	}
+	if(x576.matches) {
+		chunk = 2;
+	}
+	if(x768.matches) {
+		chunk = 3;
+	}
+	if(x1200.matches) {
+		chunk = 4;
+	}
 	  // if there is more than 3 episodes, the bloc will appear in the middle
 	   // so get the number of episodes 
 	   let count_children = episode_container.childElementCount;
-	   console.log("count children", count_children);
+
+	   let elements = [];
+
+	   ar.forEach(function(item, num) {
+	   	elements.push(num);
+	   });
+
+	   console.log('elements',elements);
+
+
+	   
+	   let rows = slice_array_by_chunk(elements , chunk);
+	  
+
+	   let indexOf = getIndexOf_multi_dim_array(rows, pos);
+
+	   let row = indexOf[0];
+	   let pos_in_row = indexOf[1];
+ 	   console.log("rows", rows);
+	   console.log("row", row, 'pos_in_row', pos_in_row);
+
+	   let element_to_clone_under = rows[row][chunk-1]; 
+
+	   console.log("element_to_clone_under" , element_to_clone_under);
+
+
+	   
 	   let index = 3;
 	   if(episode_container.classList.contains('library')) index = 4;
 
-	   if(count_children > index && pos < index) { 
+	   let clone = clone_element(ar_blocs, pos);
+	   insert_clone(episode_container, clone, ar, element_to_clone_under+1);
+	   let ar_all = document.querySelectorAll('.save-section');
+   		clone.querySelector('.save-section').addEventListener('click' , event => {
+   			on_click_save_section(pos, event);
+   			
+   		});
+
+	   /*if(count_children > index && pos < index) { 
 	   		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	   		// cloning won't keep event listeners
 	   		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	   		let clone = clone_element(ar_blocs, pos);
-	   		insert_clone(episode_container, clone, ar, index);
+	   		insert_clone(episode_container, clone, ar, element_to_clone_under);
 	    	 
 	    	//let ar_all = document.querySelectorAll('.save-section');
 	   		clone.querySelector('.save-section').addEventListener('click' , event => {
 	   			on_click_save_section(pos, event);
 	   			
 	   		});
-	    }
+	    } 
 	    else {
 	    	// show the block episode content
 			ar_blocs[pos].style.display = "block";	
-	    }
+	    }*/
 }
 
 var callback = function() {
 
-	var x992 = window.matchMedia("(min-width: 992px)")
+
+	jQuery('.colored').matchHeight();
+
+
 
 
 	let scroll_btn = document.querySelectorAll('.scroll-next a');
@@ -398,7 +526,9 @@ var callback = function() {
   document.querySelectorAll('.episode-item').forEach(item => {
 	  item.addEventListener('click', event => {
 	  	
-	  	console.log("resp", x992.matches);
+
+	  	/*console.log("resp", x576.matches);
+	  	console.log("resp", x768.matches);*/
 
 	  	// Get parent of item (episode-list) to determine the list 
 		let episode_container = item.parentElement;
@@ -409,11 +539,13 @@ var callback = function() {
 		// get all episode of the bloc
 		let ar = episode_container.querySelectorAll('.episode-item');
 
+
 		// get all contents of the bloc
 		let ar_blocs = contents_container.querySelectorAll('.content-episode-container');
 
 		// on click hide all modules
 	  	hide_all_modules(all_episodes, all_contents);
+	  	fade_all_episodes(item , all_episodes);
 	  	// add the style on episode selected
 	  	item.classList.add('selected');
 	  	
@@ -427,13 +559,20 @@ var callback = function() {
 	  	// get the position of the episode
 	    let pos = get_index(item, ar); 
 	    console.log("pos", pos);
-		
-		if(x992.matches) {
+	    console.log("ar_blocs", ar_blocs);
+
+
+		display_content_lg(pos , episode_container, ar_blocs, ar);
+
+		/*if(x992.matches) {
 	  		display_content_lg(pos , episode_container, ar_blocs, ar);
 	  	}
-	  	else {
-	  		display_content_sm(pos , episode_container, ar_blocs, ar);	
+	  	else if(x576.matches){
+	  		display_content_sm(576, pos , episode_container, ar_blocs, ar);	
 	  	}
+	  	else if(x768.matches){
+	  		display_content_sm(768, pos , episode_container, ar_blocs, ar);	
+	  	}*/
 	       
 
 	   // if there is more than 3 episodes, the bloc will appear in the middle

@@ -10,7 +10,11 @@ $logged = is_user_logged_in();
 
 get_header();
 ?>
-
+<script>
+	let x768 = window.matchMedia("(min-width: 768px)");
+	let x576 = window.matchMedia("(min-width: 576px)");
+	let x1200 = window.matchMedia("(min-width: 1200px)");
+</script>
 <?php if($logged): ?>
 
 	<div class="page-content">
@@ -98,18 +102,22 @@ get_header();
 															</label>
 														</div>
 
-														<div style="background-color:<?php echo $couleur; ?>" class="colored p-5" data-color="<?php echo $couleur; ?>">
+															<div class="colored" data-color="<?php echo $couleur; ?>" style="background-color:<?php echo $couleur; ?>;display: flex;">
 
-														<div class="icone mb-5"><img src="<?php echo get_field('icone_episode'); ?>"></div>
+															<div>
+																<p class="mb-0 icone-line"><img src="<?php echo get_field('icone_episode'); ?>" class="pr-2" style="width:50px;"><span><?php echo get_field('description_episode'); ?></span></p>
+																<h2 class="mt-2 text-uppercase episode-title"><?php the_title(); ?></h2>
+															</div>
 
-															<p class="mb-0"><?php echo get_field('description_episode'); ?></p>
-															<h2 class="mt-0"><?php the_title(); ?></h2>
-
-														</div> <!-- .colored -->
+															</div><!-- .colored -->
 
 													</div><!-- .episode-item -->
 
 												<?php endwhile; ?>
+
+												<?php $number_of_episodes = $query_episode->post_count; ?>
+
+												
 											
 										<?php endif; ?>
 
@@ -161,6 +169,7 @@ get_header();
 																					<?php endif; ?>
 																				</div><!-- .col -->
 																				<div class="col-12 col-lg-6 px-5 content">
+																					<div style="font-size: 2em;font-weight: 600;" class="text-uppercase">Ce qui vous est demandé :</div>
 																					<?php echo $content['content']; ?>
 																				</div><!-- .col -->
 																			</div><!-- .row -->

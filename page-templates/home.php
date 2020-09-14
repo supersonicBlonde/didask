@@ -27,7 +27,7 @@ if($main_parcours) {
 ?>
 
 
-<?php if(!isset($progress) || $progress['achieved'] == 0): ?>
+<?php if(!isset($progress)): ?>
 	<div class="page-content">
 
 		<?php  get_template_part( 'template-parts/content', 'intro', $section_intro ); ?>
