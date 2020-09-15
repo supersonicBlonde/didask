@@ -150,7 +150,7 @@ get_header();
 
 							<!-- <div class="icone mb-5"><img src="<?php echo $icone; ?>"></div> -->
 							<div>
-								<p class="mb-0 icone-line"><img src="<?php echo $icone; ?>" class="pr-2" style="width:50px;"><span style="font-size:1rem;"><?php echo $description; ?></span></p>
+								<p class="mb-0 icone-line"><img src="<?php echo $icone; ?>" class="pr-2" style="width:50px;"><span><?php echo $description; ?></span></p>
 								<h2 class="mt-2 text-uppercase episode-title"><?php echo $episode->post_title; ?></h2>
 							</div>
 
@@ -250,12 +250,12 @@ get_header();
 											<div class="col-12 col-lg-6 px-5">
 												<div class="up-title"><?php echo $content['over_title']; ?></div>
 												<h3 class="pt-1"><?php echo $content['title']; ?></h3>
-												<div class="mb-5"><?php echo $content['sub_title']; ?></div>
+												<div class="mb-5" style="font-size:1.5em;"><?php echo $content['sub_title']; ?></div>
 												
 												<?php if(count($content['icon_list']) > 0 ): ?>
 													<div>
 													<?php foreach($content['icon_list'] as $list): ?>
-														<div class="mb-5 icon-before icon-before-blue"><?php echo $list['paragraphe']; ?></div>
+														<div class="mb-5 icon-before icon-before-blue" style="display: flex;align-items: center;"><div><?php echo $list['paragraphe']; ?></div></div>
 													<?php endforeach; ?>
 													</div>
 												<?php endif; ?>
@@ -326,11 +326,11 @@ get_header();
 						</div>
 				</section>
 
-				<section id="autre-parcours">
+				<section id="autre-parcours" class="mt-5">
 					<div class="container">
 						<div class="row">
-							<div class="col-12 mx-auto">
-								<div>Si vous souhaitez suivre un autre parcours :</div>
+							<div class="col-12 mx-auto text-center up-btn" style="color: white;">
+								Si vous souhaitez suivre un autre parcours :
 							</div>
 						</div>
 					</div>

@@ -114,7 +114,7 @@ body.home {
 
 	&:first-child:before {
 		content:url(../../img/objectif.png);
-		width:55px;
+	/* 	width:55px; */
 		display: block;
 		padding-bottom: 1em;
 
@@ -204,7 +204,7 @@ body.home {
 	}
 
 	.content {
-		margin-top: 54px;
+		margin-top: 29px;
 
 		a {
 			text-transform: uppercase;
@@ -221,7 +221,7 @@ body.home {
 			font-size: 1.2em;
 
 			&:before {
-					content: url(../../img/play.svg);
+					content: url(../../img/dwld.svg);
 					padding-right: 1em;
 					vertical-align: inherit;
 					display: block;
@@ -525,13 +525,16 @@ footer, header {
 			padding: 7em 5em;
 
 			.icone-line {
+				span {
+					font-size:1rem;
+				}
 				img {
 					display: block;
 				}
 			}
 
 			.episode-title {
-				padding-right:3em;
+				padding-right:2em;
 			}
 
 		}
@@ -586,6 +589,13 @@ footer, header {
 		@media(min-width: 1920px) {
 			.colored {
 				padding:10em 3em;
+				padding-right:1em;
+			} 
+		}
+
+		@media(min-width: 2560px) {
+			.colored {
+				padding:5em 3em;
 				padding-right:1em;
 			}
 		}
@@ -717,6 +727,10 @@ footer, header {
 				margin-right: 2em;
 			}
 		}
+	}
+
+	.content-episode-container {
+		margin-bottom:4em;
 	}
 } 
 

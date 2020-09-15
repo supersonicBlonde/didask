@@ -1,3 +1,8 @@
+<script>
+if(performance.navigation.type == 2){
+   location.reload(true);
+}
+</script>
 <?php
 /**
 * Template Name: Home
@@ -190,11 +195,11 @@ if($main_parcours) {
 		<div id="parcours-secondaire" style="display:block;background:transparent;">
 			
 
-				<section id="autre-parcours" class="section">
+				<section id="autre-parcours" class="mt-2 section">
 					<div class="container">
 						<div class="row">
-							<div class="col-12 mx-auto text-center">
-								<div class="h3-sized">SI VOUS SOUHAITEZ CHANGER DE PARCOURS</div>
+							<div class="col-12 mx-auto text-center up-btn" style="color:white;">
+								SI VOUS SOUHAITEZ CHANGER DE PARCOURS
 							</div>
 						</div>
 					</div>

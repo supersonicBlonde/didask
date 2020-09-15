@@ -158,12 +158,12 @@ get_header();
 																				<div class="col-12 col-lg-6 px-5">
 																					<div class="up-title"><?php echo $content['over_title']; ?></div>
 																					<h3 class="pt-1"><?php echo $content['title']; ?></h3>
-																					<div class="mb-5"><?php echo $content['sub_title']; ?></div>
+																					<div class="mb-5" style="font-size:1.5em;"><?php echo $content['sub_title']; ?></div>
 																					
 																					<?php if(count($content['icon_list']) > 0 ): ?>
 																						<div>
 																						<?php foreach($content['icon_list'] as $list): ?>
-																							<div class="mb-5 icon-before icon-before-blue"><?php echo $list['paragraphe']; ?></div>
+																							<div class="mb-5 icon-before icon-before-blue" style="display: flex;align-items: center;"><?php echo $list['paragraphe']; ?></div>
 																						<?php endforeach; ?>
 																						</div>
 																					<?php endif; ?>
