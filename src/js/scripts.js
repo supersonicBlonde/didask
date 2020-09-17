@@ -150,7 +150,12 @@ function fade_all_episodes(current, episodes) {
 	})
 }
 
-function hide_all_modules(ar_episodes, ar_blocs) {
+function hide_all_modules() {
+
+	 let ar_episodes = document.querySelectorAll('.episode-item');
+  	let ar_blocs = document.querySelectorAll('.content-episode-container');
+
+
 
 	ar_blocs.forEach(item => {
 		item.style.display = "none";
@@ -166,10 +171,10 @@ function hide_all_modules(ar_episodes, ar_blocs) {
 	});
 }
  
-function close() {
+/*function close() {
 	 let ar_blocs = document.querySelectorAll('.content-episode-container');
 	 remove_all_modules(ar, ar_blocs);
-}
+}*/
 
 function save_progression(index, id_parcours , id_episode) {
 
@@ -453,8 +458,11 @@ function display_content_lg(pos, episode_container, ar_blocs, ar) {
 	   let ar_all = document.querySelectorAll('.save-section');
    		clone.querySelector('.save-section').addEventListener('click' , event => {
    			on_click_save_section(pos, event);
-   			
+   			attach_close_listener();
    		});
+   		clone.querySelector('.close').addEventListener('click' , event => {
+   			hide_all_modules();
+   		})
 
 	   /*if(count_children > index && pos < index) { 
 	   		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -481,7 +489,7 @@ var callback = function() {
 	jQuery('.colored').matchHeight();
 
 
-
+	
 
 	let scroll_btn = document.querySelectorAll('.scroll-next a');
 
@@ -521,7 +529,8 @@ var callback = function() {
 
   let all_episodes = document.querySelectorAll('.episode-item');
   let all_contents = document.querySelectorAll('.content-episode-container');
- // let parent_node = document.querySelector('.episodes-list'); 
+
+ 
  
   document.querySelectorAll('.episode-item').forEach(item => {
 	  item.addEventListener('click', event => {
@@ -544,7 +553,7 @@ var callback = function() {
 		let ar_blocs = contents_container.querySelectorAll('.content-episode-container');
 
 		// on click hide all modules
-	  	hide_all_modules(all_episodes, all_contents);
+	  	hide_all_modules();
 	  	fade_all_episodes(item , all_episodes);
 	  	// add the style on episode selected
 	  	item.classList.add('selected');

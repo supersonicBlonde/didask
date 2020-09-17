@@ -113,15 +113,17 @@ if($main_parcours) {
 		<?php  get_template_part( 'template-parts/content', 'intro', $section_intro ); ?>
 
 
+		<?php if(!empty(get_field('texte_parcours_principal' , 'options'))): ?>
 		<div class="section">
 			<div class="container">
 				<div class="row">
 					<div class="column col-lg-5 col-8 mx-auto text-center mt-5">
-						<h2 class="h3-sized">VOTRE PARCOURS</h2>
+						<h2 class="h3-sized text-uppercase"><?php echo get_field('texte_parcours_principal' , 'options'); ?></h2>
 					</div>
 				</div>
 			</div>
 		</div>
+	<?php endif; ?>
 
 		<div class="section" id="home-section-4">
 			<div class="container">
@@ -162,24 +164,27 @@ if($main_parcours) {
 
 					        ?>
 					    	
+					    	<?php $congrats = get_field('parcours_prinicpal_termine' , 'options'); ?>
 					    	
 							<?php if($progress['completed'] == 1): ?>
+								<?php if($congrats): ?>
 									<section id="intro" class="text-center">
 										<div class="container">
 											<div class="row">
 												<div class="column col-lg-4 col-8 mx-auto text-center">
-													<h1>Bravo !</h1>
-													<p>Avec ce premier parcours terminé, votre équipe a déjà fait un grand pas en avant. La suite de l’histoire s’écrit essentiellement dans votre quotidien, en essayant d’appliquer ce que vous avez appris ensemble.</p>
+													<h1><?php echo $congrats['titre']; ?></h1>
+													<p><?php echo $congrats['paragraphe']; ?></p>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-12">
-													<div class="up-btn">Pour explorer librement le reste de ce kit</div>
-													<div class="default-btn"><a href="/bibliotheque">Aller à la bibliothèque</a></div>
+													<div class="up-btn"><?php echo $congrats['up_btn_library'] ?></div>
+													<div class="default-btn"><a href="/bibliotheque"><?php echo $congrats['texte_bouton_bibliotheque'] ?></a></div>
 												</div>
 											</div>
 									</section>
 							<?php endif; ?>
+						<?php endif; ?>
 					    <?php endwhile; ?>
 					    
 		
@@ -199,7 +204,9 @@ if($main_parcours) {
 					<div class="container">
 						<div class="row">
 							<div class="col-12 mx-auto text-center up-btn" style="color:white;">
-								SI VOUS SOUHAITEZ CHANGER DE PARCOURS
+								<?php if($congrats): ?>
+									<?php echo $congrats['changement_de_parcours']; ?>
+								<?php endif; ?>
 							</div>
 						</div>
 					</div>

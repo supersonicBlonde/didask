@@ -49,7 +49,7 @@ get_header();
 							<div class="col-12">
 								<div class="theme-title">
 									<img src="<?php echo get_field('icone' , 'episode-category_'.$episode['term']['id']); ?>">
-									<h3 class="text-uppercase">Tous les épisodes sur le thème : <?php echo $episode['term']['name']; ?></h3>
+									<h3 class="text-uppercase">Toutes les activités sur le thème : <?php echo $episode['term']['name']; ?></h3>
 								</div>	
 							</div><!-- .col-12 -->
 						</div><!-- .row -->
@@ -83,23 +83,20 @@ get_header();
 															$status_results = $wpdb->get_row( "SELECT status FROM tracking WHERE id_user = $id_user AND  id_episode = $episode_id", OBJECT );
 
 															$checked = "";
-															$label = "A découvrir";
+															$label = '<span style="opacity:0">A découvrir</span>';
 													
 
 															if(isset($status_results->status) && $status_results->status == '1') {
 
 																$checked = 'checked="checked"';
-																$label = 'Terminé';
+																$label = 'Déjà réalisé';
 															}
 												
 
 															?>
 
 														<div class="checkbox-discover">
-															<label  for="progress"><span class="text-label"><?php echo $label; ?></span>
-															  <input type="checkbox" name="progress" value="" disabled <?php echo $checked; ?>>
-															  <span class="checkmark-input"></span>
-															</label>
+															<label  for="progress"><span class="text-label"><?php echo $label; ?></span></label>
 														</div>
 
 															<div class="colored" data-color="<?php echo $couleur; ?>" style="background-color:<?php echo $couleur; ?>;display: flex;">
@@ -152,6 +149,7 @@ get_header();
 
 
 																		<div style="background:<?php echo $couleur; ?>" class="my-2 py-5 px-lg-5">
+																			<div class="close"><img src="<?php echo get_template_directory_uri().'/img/close.svg'; ?>"></div>
 																			
 																			<?php //inside bloc ?>
 																			<div class="row">
@@ -163,7 +161,7 @@ get_header();
 																					<?php if(count($content['icon_list']) > 0 ): ?>
 																						<div>
 																						<?php foreach($content['icon_list'] as $list): ?>
-																							<div class="mb-5 icon-before icon-before-blue" style="display: flex;align-items: center;"><?php echo $list['paragraphe']; ?></div>
+																							<div class="mb-5 icon-before icon-before-blue" style="display: flex;align-items: center;"><div><?php echo $list['paragraphe']; ?></div></div>
 																						<?php endforeach; ?>
 																						</div>
 																					<?php endif; ?>

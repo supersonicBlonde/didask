@@ -77,7 +77,7 @@ get_header();
 				<div class="container">
 					<div class="row">
 						<div class="col-12 text-center">
-							<div class="page-title">Episodes</div>
+							<div class="page-title">Activités</div>
 						</div>
 					</div>
 				</div>
@@ -240,10 +240,13 @@ get_header();
 						<div class="row">
 							<div class="col-12">
 
-								<div  class="content-episode">
+								<div class="content-episode">
 
 
 									<div style="background:<?php echo $couleur; ?>" class="py-5 px-lg-5">
+
+										<div class="close"><img src="<?php echo get_template_directory_uri().'/img/close.svg'; ?>"></div>
+										
 										
 										<?php //inside bloc ?>
 										<div class="row">
@@ -277,7 +280,7 @@ get_header();
 													<div class="text-uppercase pb-2">Vous avez terminé ?</div>
 													<div class="default-btn btn-invert"><a href="#" class="track-btn">Cliquez ici pour l'enregistrer</a></div>
 												<?php else: ?>
-													<div class="text-uppercase pb-2">Vous avez déja fait ce module</div>
+													<div class="text-uppercase pb-2">Vous avez déjà fait cette activité</div>
 													<div><a href="#" class="cancel-track">Annuler</a></div>
 												<?php endif; ?>
 											</div>
