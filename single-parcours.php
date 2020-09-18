@@ -119,17 +119,19 @@ get_header();
 					<div class="episode-item mb-5" data-episode="<?php echo $episode->ID; ?>">
 
 						<?php
+						$labels =get_field('activite' , 'options');
 
 						$status_results = $wpdb->get_row( "SELECT status FROM tracking WHERE id_user = $id_user AND id_parcours = $id_parcours AND id_episode = $episode->ID", OBJECT );
 
 						$checked = "";
-						$label = "A découvrir";
+						$label = $labels['status_to_do'];
 				
+
 
 						if(isset($status_results->status) && $status_results->status == '1') {
 
 							$checked = 'checked="checked"';
-							$label = 'Terminé';
+							$label = $labels['status_over'];
 						}
 			
 
@@ -174,14 +176,14 @@ get_header();
 						console.log("resp1200",x1200.matches);
 
 						if(x576.matches && <?php echo $number_of_episodes ?>%2!=0) {
-							document.write('<div class="episode-item mb-5"></div>');
+							document.write('<div class="mb-5"></div>');
 							console.log("modulo576", <?php echo $number_of_episodes ?>%4);
 						}
 						else  if(x768.matches && <?php echo $number_of_episodes ?>%3!=0) {
 							console.log("modulo768", <?php echo $number_of_episodes ?>%4);
 							i = 0;
 							while(i <= <?php echo $number_of_episodes ?>%3) {
-								document.write('<div class="episode-item mb-5"></div>');
+								document.write('<div class="episode-ghost mb-5"></div>');
 								i++;
 							}
 						}
@@ -189,7 +191,7 @@ get_header();
 								console.log("modulo", <?php echo $number_of_episodes ?>%4);
 								i = 0;
 								while(i <= <?php echo $number_of_episodes ?>%4) {
-									document.write('<div class="episode-item mb-5"></div>');
+									document.write('<div class="episode-ghost mb-5"></div>');
 									i++;
 								}
 						
@@ -214,8 +216,11 @@ get_header();
 
 
 			 	<div class="content-list">
-			 	
+						
+
 			 	<?php 
+					$activite = get_field('activite', 'options');
+					$bloc_contenu_activite = get_field('bloc_contenu_activite', 'options');
 
 					foreach($episodes as $episode): 
 
@@ -235,7 +240,7 @@ get_header();
 
 				?>
 
-
+					
 					<div class="content-episode-container">
 						<div class="row">
 							<div class="col-12">
@@ -264,7 +269,7 @@ get_header();
 												<?php endif; ?>
 											</div><!-- .col -->
 											<div class="col-12 col-lg-6 px-5 content">
-												<div style="font-size: 2em;font-weight: 600;" class="text-uppercase">Ce qui vous est demandé :</div>
+												<div style="font-size: 2em;font-weight: 600;" class="text-uppercase mb-2"><?php echo $bloc_contenu_activite['title_instructions']; ?></div>
 												<?php echo $content['content']; ?>
 											</div><!-- .col -->
 										</div><!-- .row -->
@@ -277,11 +282,11 @@ get_header();
 										<div class="col-12 mx-auto">
 											<div class="save-section my-5" data-episode_saved="<?php echo $episode->ID; ?>" data-parcours="<?php echo $id_parcours; ?>">
 												<?php if($status == 0): ?>
-													<div class="text-uppercase pb-2">Vous avez terminé ?</div>
-													<div class="default-btn btn-invert"><a href="#" class="track-btn">Cliquez ici pour l'enregistrer</a></div>
+													<div class="text-uppercase pb-2"><?php echo $bloc_contenu_activite['activite_complete'] ?></div>
+													<div class="default-btn btn-invert"><a href="#" class="track-btn"><?php echo $bloc_contenu_activite['texte_save_button']; ?></a></div>
 												<?php else: ?>
-													<div class="text-uppercase pb-2">Vous avez déjà fait cette activité</div>
-													<div><a href="#" class="cancel-track">Annuler</a></div>
+													<div class="text-uppercase pb-2"><?php echo $bloc_contenu_activite['text_on_cancel_btn']; ?></div>
+													<div><a href="#" class="cancel-track"><?php echo $bloc_contenu_activite['text_cancel_btn']; ?></a></div>
 												<?php endif; ?>
 											</div>
 										</div>

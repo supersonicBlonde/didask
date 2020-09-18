@@ -78,18 +78,19 @@ get_header();
 													<div class="episode-item mb-5" data-episode="<?php echo the_ID(); ?>">
 
 														<?php
+															$labels = get_field('activite' , 'options');
 															$id_user = get_current_user_id();
 															$episode_id = get_the_ID();
 															$status_results = $wpdb->get_row( "SELECT status FROM tracking WHERE id_user = $id_user AND  id_episode = $episode_id", OBJECT );
 
 															$checked = "";
-															$label = '<span style="opacity:0">A découvrir</span>';
+															$label = '<span style="opacity:0">'.$labels['status_to_do'].'</span>';
 													
 
 															if(isset($status_results->status) && $status_results->status == '1') {
 
 																$checked = 'checked="checked"';
-																$label = 'Déjà réalisé';
+																$label = $labels['status_over_library'];
 															}
 												
 
@@ -167,7 +168,7 @@ get_header();
 																					<?php endif; ?>
 																				</div><!-- .col -->
 																				<div class="col-12 col-lg-6 px-5 content">
-																					<div style="font-size: 2em;font-weight: 600;" class="text-uppercase">Ce qui vous est demandé :</div>
+																					<div style="font-size: 2em;font-weight: 600;" class="text-uppercase mb-2"><?php the_field('bloc_contenu_activite' , 'options'); ?></div>
 																					<?php echo $content['content']; ?>
 																				</div><!-- .col -->
 																			</div><!-- .row -->

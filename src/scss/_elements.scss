@@ -504,7 +504,7 @@ footer, header {
 		flex-direction: row;
 	} 
 
-	.episode-item {
+	.episode-item, .episode-ghost {
 
 		
 
@@ -523,6 +523,7 @@ footer, header {
 			
 			border: 3px solid transparent;
 			padding: 7em 5em;
+			cursor: pointer;
 
 			.icone-line {
 				span {
@@ -615,7 +616,6 @@ footer, header {
 			  position: relative;
 			  padding-left: 35px;
 			  margin-bottom: 12px;
-			  cursor: pointer;
 			  font-size: 22px;
 			  -webkit-user-select: none;
 			  -moz-user-select: none;
@@ -685,12 +685,15 @@ footer, header {
 			/* padding-bottom: 40%; */
 		}
 
+		&:hover .colored {
+			border-color: #352A58;
+		}
 		&.selected {
 			
 			 position: relative;
 
 			 .colored {
-
+			 	cursor: pointer;
 			 	border-color: #352A58;
 
 

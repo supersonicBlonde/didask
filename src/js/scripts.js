@@ -27,6 +27,20 @@ HTMLElement.prototype.pseudoStyle = function(element,prop,value){
 
 
 /**********************************************************************************/
+
+/*class Tracking {
+
+	constructor(parent) {
+		this.parent = document.getElementById('header-container');
+		this.modal_wrapper = document.createElement('div');
+		this.modal_container = document.createElement('div');
+		this.close_btn = document.createElement('div');
+		this.close_shape = document.createElement('div');
+		this.overlay = document.getElementById('overlay');
+		this.scale = document.querySelector('.scale');
+		this.createElements();   
+	} 
+}*/
 function update_progress_bar(id_parcours) {
 	console.log(id_parcours);
 	jQuery.ajax({
