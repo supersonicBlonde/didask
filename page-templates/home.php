@@ -21,11 +21,15 @@ $section_intro = get_field('section_introduction_home');
 $section_2col = get_field('bloc_2_colonnes');
 $section_intro_parcours = get_field('presentation_des_parcours');
 
+
 if($logged):
-$main_parcours = check_parcours();
-if($main_parcours) {
+/*$main_parcours = check_parcours();*/
+
+
+
+/*if($main_parcours) {
 	$progress = get_percent_progression(  $main_parcours['id_parcours']);
-}
+}*/
 
 
  endif;

@@ -19,7 +19,7 @@ $id_parcours = $post->ID;
 
 
 // get status
-$progress = get_percent_progression( $id_parcours);
+$progress = get_status_progression( $id_parcours);
 
 
 get_header();
