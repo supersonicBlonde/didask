@@ -28,19 +28,7 @@ HTMLElement.prototype.pseudoStyle = function(element,prop,value){
 
 /**********************************************************************************/
 
-/*class Tracking {
 
-	constructor(parent) {
-		this.parent = document.getElementById('header-container');
-		this.modal_wrapper = document.createElement('div');
-		this.modal_container = document.createElement('div');
-		this.close_btn = document.createElement('div');
-		this.close_shape = document.createElement('div');
-		this.overlay = document.getElementById('overlay');
-		this.scale = document.querySelector('.scale');
-		this.createElements();   
-	} 
-}*/
 function update_progress_bar(id_parcours) {
 	console.log(id_parcours);
 	jQuery.ajax({
@@ -185,10 +173,6 @@ function hide_all_modules() {
 	});
 }
  
-/*function close() {
-	 let ar_blocs = document.querySelectorAll('.content-episode-container');
-	 remove_all_modules(ar, ar_blocs);
-}*/
 
 function save_progression(index, id_parcours , id_episode) {
 
@@ -220,22 +204,18 @@ function save_progression(index, id_parcours , id_episode) {
 				let bloc_episode = document.querySelector("[data-episode = '"+id_episode+"']");
 				let cb_container = bloc_episode.querySelector(".checkbox-discover");
 
-				element_to_replace.innerHTML = '<div class="text-uppercase pb-2 success"><span class="bravo">BRAVO</span>Votre équipe a terminé cet épisode.</div><div ><a href="#" class="cancel-track">Annuler</a></div>';
+				let texts = response['texts'];
+
+				element_to_replace.innerHTML = '<div class="text-uppercase pb-2 success">'+texts['text_on_cancel_btn']+'</div><div ><a href="#" class="cancel-track">'+texts['text_cancel_btn']+'</a></div>';
 
 
-				/*let index = response['index'];
-				let ar = document.querySelectorAll('.save-section');
-				let episode_ar = document.querySelectorAll('.episode-item');
-				console.log('arindex', ar[index]);*/
-				
-
-				//let cb_container = episode_ar[index].querySelector('.checkbox-discover'); 
 				cb_container.querySelector('input').checked = true;
 				cb_container.querySelector('.text-label').innerHTML = "Terminé";
-				if(response['completed'] == 1) {
+				if(response['completed'] == true) {
+					//document.querySelector('.wrapper').style.paddingBottom = 0;
 					let parcours_secondaire = document.getElementById('parcours-secondaire');
 					parcours_secondaire.style.display = 'block';
-					parcours_secondaire.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+					parcours_secondaire.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
 				}
 				update_progress_bar(id_parcours);
 			}
@@ -280,18 +260,19 @@ function cancel_progression(index, id_parcours , id_episode) {
 				let element_to_replace = document.querySelector("[data-episode_saved = '"+id_episode+"']");
 				let bloc_episode = document.querySelector("[data-episode = '"+id_episode+"']");
 				let cb_container = bloc_episode.querySelector(".checkbox-discover");
+				let texts = response['texts'];
 
-				element_to_replace.innerHTML = '<div class="text-uppercase pb-2">Vous avez terminé ?</div><div class="default-btn btn-invert"><a href="/" class="track-btn">Cliquez ici pour l`\'enregistrer</a></div>';
+				element_to_replace.innerHTML = '<div class="text-uppercase pb-2">'+texts['activite_complete']+'</div><div class="default-btn btn-invert"><a href="/" class="track-btn">'+texts['texte_save_button']+'</a></div>';
 
 
-				/*let index = response['index'];
-				let ar = document.querySelectorAll('.save-section');
-				let episode_ar = document.querySelectorAll('.episode-item');
-				
-				console.log('arindex', ar[index]);
-				let cb_container = episode_ar[index].querySelector('.checkbox-discover'); */
 				cb_container.querySelector('input').checked = false;
-				cb_container.querySelector('.text-label').innerHTML = "A découvrir";
+				cb_container.querySelector('.text-label').innerHTML = "A réaliser";
+				if(response['completed'] == false) {
+					document.querySelector('.wrapper').style.paddingBottom = 180;
+					//let parcours_secondaire = document.getElementById('parcours-secondaire');
+					parcours_secondaire.style.display = 'none';
+					
+				}
 				update_progress_bar(id_parcours);
 			}
 		},
@@ -346,12 +327,56 @@ function on_click_save_section(pos, event) {
 }
 
 
+function update_texts(id_episode, id_parcours) {
+	jQuery.ajax({
+		url : ajax_js_obj.ajax_url,
+		dataType: 'json',
+		type : 'post',
+		data : {
+			action : 'get_episode_status', 
+			parcours: id_parcours, 
+			episode: id_episode,
+			submitted_nonce : ajax_js_obj.the_nonce,
+		},
+		
+		success : function( response ) { 
+			let texts = response['texts'];
+			let id_episode = response['id_episode'];
+			let element_to_replace = document.querySelector("[data-episode_saved = '"+id_episode+"']");
+			let bloc_episode = document.querySelector("[data-episode = '"+id_episode+"']");
+			if(response['status'] == true) {
+			
+				element_to_replace.innerHTML = '<div class="text-uppercase pb-2 success">'+texts['text_on_cancel_btn']+'</div><div><a href="#" class="cancel-track">'+texts['text_cancel_btn']+'</a></div>';
+			}
+			else {
+				element_to_replace.innerHTML = '<div class="text-uppercase pb-2">'+texts['activite_complete']+'</div><div class="default-btn btn-invert"><a href="/" class="track-btn">'+texts['texte_save_button']+'</a></div>';
+			}
+
+			element_to_replace.style.opacity = 1;
+
+			
+		},
+		complete:function(data){
+	    	//document.getElementById('preloader').classList.add('hide');
+	   },
+		error : function( response ) {
+			console.log('Error retrieving the information: ' + response.status + ' ' + response.statusText);
+			//console.log( response );
+		}
+	});
+}
+
+
 
 
 function clone_element(ar_blocs, pos) {
 	let clone = ar_blocs[pos].cloneNode(true);
-	console.log(clone);
+	let save_section = clone.querySelector('.save-section');
 	clone.style.display = "block";
+	if(save_section) {
+		save_section.style.opacity = 0;
+		update_texts(save_section.dataset.episode_saved , save_section.dataset.parcours);
+	}
 	
 	return clone;
 }
@@ -470,13 +495,14 @@ function display_content_lg(pos, episode_container, ar_blocs, ar) {
 	   let clone = clone_element(ar_blocs, pos);
 	   insert_clone(episode_container, clone, ar, element_to_clone_under+1);
 	   let ar_all = document.querySelectorAll('.save-section');
-   		clone.querySelector('.save-section').addEventListener('click' , event => {
+	   clone.querySelector('.close').addEventListener('click' , event => {
+   			hide_all_modules();
+   		})
+   	  clone.querySelector('.save-section').addEventListener('click' , event => {
    			on_click_save_section(pos, event);
    			attach_close_listener();
    		});
-   		clone.querySelector('.close').addEventListener('click' , event => {
-   			hide_all_modules();
-   		})
+   		
 
 	   /*if(count_children > index && pos < index) { 
 	   		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -502,8 +528,6 @@ var callback = function() {
 
 	jQuery('.colored').matchHeight();
 
-
-	
 
 	let scroll_btn = document.querySelectorAll('.scroll-next a');
 
@@ -567,8 +591,10 @@ var callback = function() {
 		let ar_blocs = contents_container.querySelectorAll('.content-episode-container');
 
 		// on click hide all modules
-	  	hide_all_modules();
-	  	fade_all_episodes(item , all_episodes);
+		if(!item.classList.contains('ghost')) {
+	  		hide_all_modules();
+	  		fade_all_episodes(item , all_episodes);
+	  	}
 	  	// add the style on episode selected
 	  	item.classList.add('selected');
 	  	

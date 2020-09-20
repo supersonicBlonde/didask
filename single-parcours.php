@@ -15,6 +15,7 @@ $logged = is_user_logged_in();
 $episodes = get_field('episodes');
 $id_user = get_current_user_id();
 $id_parcours = $post->ID;
+$labels =get_field('activite' , 'options');
 
 
 
@@ -77,7 +78,7 @@ get_header();
 				<div class="container">
 					<div class="row">
 						<div class="col-12 text-center">
-							<div class="page-title">Activités</div>
+							<div class="page-title"><?php echo $labels['titre_page']; ?></div>
 						</div>
 					</div>
 				</div>
@@ -119,16 +120,16 @@ get_header();
 					<div class="episode-item mb-5" data-episode="<?php echo $episode->ID; ?>">
 
 						<?php
-						$labels =get_field('activite' , 'options');
+						
 
-						$status_results = $wpdb->get_row( "SELECT status FROM tracking WHERE id_user = $id_user AND id_parcours = $id_parcours AND id_episode = $episode->ID", OBJECT );
+						$status_results = $wpdb->get_row( "SELECT * FROM tracking WHERE id_user = $id_user AND id_parcours = $id_parcours AND id_episode = $episode->ID", OBJECT );
 
 						$checked = "";
 						$label = $labels['status_to_do'];
 				
 
 
-						if(isset($status_results->status) && $status_results->status == '1') {
+						if(!empty($status_results)) {
 
 							$checked = 'checked="checked"';
 							$label = $labels['status_over'];
@@ -183,7 +184,7 @@ get_header();
 							console.log("modulo768", <?php echo $number_of_episodes ?>%4);
 							i = 0;
 							while(i <= <?php echo $number_of_episodes ?>%3) {
-								document.write('<div class="episode-ghost mb-5"></div>');
+								document.write('<div class="episode-item ghost mb-5"></div>');
 								i++;
 							}
 						}
@@ -191,7 +192,7 @@ get_header();
 								console.log("modulo", <?php echo $number_of_episodes ?>%4);
 								i = 0;
 								while(i <= <?php echo $number_of_episodes ?>%4) {
-									document.write('<div class="episode-ghost mb-5"></div>');
+									document.write('<div class="episode-item ghost mb-5"></div>');
 									i++;
 								}
 						
@@ -228,12 +229,12 @@ get_header();
 					
 						$couleur = get_field('couleur' , $episode->ID);
 
-						$status_results = $wpdb->get_row( "SELECT status FROM tracking WHERE id_user = $id_user AND id_parcours = $id_parcours AND id_episode = $episode->ID", OBJECT );
+						$status_results = $wpdb->get_row( "SELECT * FROM tracking WHERE id_user = $id_user AND id_parcours = $id_parcours AND id_episode = $episode->ID", OBJECT );
 
 
 						$status = 0;
 
-						if(isset($status_results->status) && $status_results->status == '1') {
+						if(!empty($status_results)) {
 
 							$status = 1;
 						}
@@ -282,11 +283,9 @@ get_header();
 										<div class="col-12 mx-auto">
 											<div class="save-section my-5" data-episode_saved="<?php echo $episode->ID; ?>" data-parcours="<?php echo $id_parcours; ?>">
 												<?php if($status == 0): ?>
-													<div class="text-uppercase pb-2"><?php echo $bloc_contenu_activite['activite_complete'] ?></div>
-													<div class="default-btn btn-invert"><a href="#" class="track-btn"><?php echo $bloc_contenu_activite['texte_save_button']; ?></a></div>
+													<?php get_template_part( 'template-parts/content', 'start' , $bloc_contenu_activite); ?>
 												<?php else: ?>
-													<div class="text-uppercase pb-2"><?php echo $bloc_contenu_activite['text_on_cancel_btn']; ?></div>
-													<div><a href="#" class="cancel-track"><?php echo $bloc_contenu_activite['text_cancel_btn']; ?></a></div>
+													<?php get_template_part( 'template-parts/content', 'end' , $bloc_contenu_activite); ?>
 												<?php endif; ?>
 											</div>
 										</div>

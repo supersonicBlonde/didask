@@ -636,7 +636,7 @@ footer, header {
 
 			.checkmark-input {
 				position: absolute;
-				border:1px solid $color__background;
+				border:1px solid transparent;
 				border-radius: 2px;
 				top: 3px;
 				left: 0;
@@ -647,7 +647,7 @@ footer, header {
 				&:before {
 					position: absolute;
 				    left: 0;
-				    top: 29%;
+				    top: 38%;
 				    height: 50%;
 				    width: 3px;
 				    background-color: #00AAA6;
@@ -763,6 +763,7 @@ footer, header {
 		}
 
 		.save-section {
+			transition: opacity .5s;
 			/* background: rgb(255,255,255);
 			background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(231,231,231,0.6026785714285714) 51%, rgba(255,255,255,1) 100%);
 			border: 3px solid #352A58;
@@ -859,6 +860,12 @@ footer, header {
 	vertical-align: -13%;
 	padding-left: 15px;
 }
+
+.checkmark-without-box:before {
+	content:url(../../dist/svg/check_without_box.svg);
+	vertical-align: -13%;
+	padding-right: 15px;
+}
 /***************************
 	LOGIN PAGES
 	*************************/
@@ -924,7 +931,7 @@ a.um-link-alt {
 }
 
 .theme-title {
-	display: flex;
+	/* display: flex; */
 	margin:3em 0 2em 0;
 	align-items: center;
 	font-family: $font__primary;

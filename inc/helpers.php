@@ -27,6 +27,7 @@ function list_posts_by_term( $posts, $tax, $terms, $posts_per_page = -1 ) {
 	foreach ( $tax_terms as $term ) {
 		$posts_ar[$count]['term']['name'] =  $term->name;
 		$posts_ar[$count]['term']['id'] =  $term->term_id;
+		$posts_ar[$count]['term']['description'] =  $term->description;
 
 		   $args = array(
 		    'posts_per_page' => $posts_per_page,

@@ -23,7 +23,8 @@ $section_intro_parcours = get_field('presentation_des_parcours');
 
 
 if($logged):
-/*$main_parcours = check_parcours();*/
+
+$parcours_principal = get_parcours_principal();
 
 
 
@@ -36,7 +37,7 @@ if($logged):
 ?>
 
 
-<?php if(!isset($progress)): ?>
+<?php if(empty($parcours_principal)): ?>
 	<div class="page-content">
 
 		<?php  get_template_part( 'template-parts/content', 'intro', $section_intro ); ?>
@@ -137,7 +138,7 @@ if($logged):
 					$args = array(
 						'post_type' 		=> 'parcours',
 						'posts_per_page'    => 1,
-						'p' => $main_parcours['id_parcours']
+						'p' => $parcours_principal['id_parcours']
 					);
 					
 					$query_parcours = new WP_Query( $args );
@@ -151,10 +152,10 @@ if($logged):
 					        $query_parcours->the_post(); 
 
 					        // get list of episodes
-					        $episodes = get_field('episodes' , $main_parcours['id_parcours']);
+					        $episodes = get_field('episodes' , $parcours_principal['id_parcours']);
 					        
 					        $episodes_number = count($episodes);
-					        $progress = get_percent_progression( $main_parcours['id_parcours']); 
+					        $progress = get_status_progression( $parcours_principal['id_parcours']); 
 					        
 
 
@@ -223,7 +224,7 @@ if($logged):
 								$args = array(
 									'post_type' 		=> 'parcours',
 									'posts_per_page'    => -1,
-									'post__not_in' => array($main_parcours['id_parcours']) 
+									'post__not_in' => array($parcours_principal['id_parcours']) 
 								);
 								
 								$query_parcours = new WP_Query( $args );
@@ -243,11 +244,12 @@ if($logged):
 								        
 								        $episodes_number = count($episodes);
 
-								        $progress = get_percent_progression(get_the_ID());
+								        $progress = get_status_progression(get_the_ID());
 
 								         $args = array(
 								        	'progress' 				=> $progress,
 								        	'number_of_episodes' 	=> $episodes_number,
+								        	'duration'   		 	=> get_field('duration'),
 								        	'intro_text'			=> get_field('intro_text')
 								        );
 

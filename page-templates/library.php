@@ -48,8 +48,11 @@ get_header();
 						<div class="row">
 							<div class="col-12">
 								<div class="theme-title">
+									<div style="display:flex;align-items:center;">
 									<img src="<?php echo get_field('icone' , 'episode-category_'.$episode['term']['id']); ?>">
-									<h3 class="text-uppercase">Toutes les activités sur le thème : <?php echo $episode['term']['name']; ?></h3>
+									<h3 class="text-uppercase" style="margin-bottom:5px;">Toutes les activités sur le thème : <?php echo $episode['term']['name']; ?></h3>
+									</div>
+									<p style="font-size:1.5rem;padding-left:75px;"><?php echo $episode['term']['description']; ?></p>
 								</div>	
 							</div><!-- .col-12 -->
 						</div><!-- .row -->
@@ -66,7 +69,8 @@ get_header();
 									<?php foreach($episode['episodes'] as $key): 
 										$args = array('post_type' => 'episodes' , 'p' => $key); 
 										$query_episode = new WP_Query( $args );
-
+										$labels = get_field('activite' , 'options');
+										
 										if ( $query_episode->have_posts() ): ?>
 											
 												<?php while ( $query_episode->have_posts() ): $query_episode->the_post(); ?>
@@ -78,16 +82,17 @@ get_header();
 													<div class="episode-item mb-5" data-episode="<?php echo the_ID(); ?>">
 
 														<?php
-															$labels = get_field('activite' , 'options');
+															
+															
 															$id_user = get_current_user_id();
 															$episode_id = get_the_ID();
-															$status_results = $wpdb->get_row( "SELECT status FROM tracking WHERE id_user = $id_user AND  id_episode = $episode_id", OBJECT );
+															$status_results = $wpdb->get_row( "SELECT * FROM tracking WHERE id_user = $id_user AND  id_episode = $episode_id", OBJECT );
 
 															$checked = "";
 															$label = '<span style="opacity:0">'.$labels['status_to_do'].'</span>';
-													
+															
 
-															if(isset($status_results->status) && $status_results->status == '1') {
+															if(!empty($status_results)) {
 
 																$checked = 'checked="checked"';
 																$label = $labels['status_over_library'];
@@ -97,7 +102,7 @@ get_header();
 															?>
 
 														<div class="checkbox-discover">
-															<label  for="progress"><span class="text-label"><?php echo $label; ?></span></label>
+															<label  for="progress"><span class="text-labl"><?php echo $label; ?></span></label>
 														</div>
 
 															<div class="colored" data-color="<?php echo $couleur; ?>" style="background-color:<?php echo $couleur; ?>;display: flex;">
