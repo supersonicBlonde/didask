@@ -8,6 +8,7 @@
 // Init some variables
 $logged = is_user_logged_in();
 
+$textes = get_field('bibliotheque' , 'options');
 get_header();
 ?>
 <script>
@@ -23,12 +24,12 @@ get_header();
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
-						<h1>La Bibliothèque</h1>
+						<h1><?php the_title(); ?></h1>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12">
-						<h2 class="h4-sized">Explorez toutes les ressources disponibles et expérimentez à votre guise !</h2>
+						<h2 class="h4-sized"><?php echo $textes['texte_intro_page']; ?></h2>
 					</div>
 				</div>
 			</div>
@@ -50,7 +51,7 @@ get_header();
 								<div class="theme-title">
 									<div style="display:flex;align-items:center;">
 									<img src="<?php echo get_field('icone' , 'episode-category_'.$episode['term']['id']); ?>">
-									<h3 class="text-uppercase" style="margin-bottom:5px;">Toutes les activités sur le thème : <?php echo $episode['term']['name']; ?></h3>
+									<h3 class="text-uppercase" style="margin-bottom:5px;"><?php echo $textes['titre_theme']; ?>&nbsp;<?php echo $episode['term']['name']; ?></h3>
 									</div>
 									<p style="font-size:1.5rem;padding-left:75px;"><?php echo $episode['term']['description']; ?></p>
 								</div>	
