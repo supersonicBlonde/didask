@@ -39,18 +39,18 @@ get_header();
 							<div class="up-title">Parcours</div>
 							<h1 class="mt-1"><?php the_title(); ?></h1>
 							<p><?php the_field('texte_introduction_single'); ?></p>
-							<div id="progress-section">
-								<div class="progress-text" id="progress-text" style="display:inline;"><?php echo $progress['achieved'] ?> épisode<?php echo $progress['achieved'] > 1?'s':''?> terminé<?php echo $progress['achieved'] > 1?'s':''?> sur <?php echo $progress['episodes_number']; ?>
+							<div class="progress-section">
+								<div class="progress-text" id="progress-text" style="display:inline;"><?php echo $progress['achieved'] ?> activité<?php echo $progress['achieved'] > 1?'s':''?> terminée<?php echo $progress['achieved'] > 1?'s':''?> sur <?php echo $progress['episodes_number']; ?>
 									<?php $display = $progress['completed'] == 1?'inline':'none'; ?>
 								</div>
 								<span class="checkmark" id="checkmark" style="display:<?php echo $display; ?>"></span>
 								<div class="progress">
-									<div class="bar"id="bar" style="width:<?php echo $progress['percent']; ?>%">
+									<div class="bar" id="bar" style="width:<?php echo $progress['percent']; ?>%">
 									</div>
 								</div>
 							</div>
-							<?php $display = $progress['completed'] == 1?'inline':'none'; ?>
-								<div class="completed" id="completed" style="display: <?php echo $display; ?>">
+							<?php $display = $progress['completed'] == 1?'1':'0'; ?>
+								<div class="completed" id="completed" style="opacity: <?php echo $display; ?>">
 									<div>Bravo, vous avez terminé le parcours.</div>
 									<div class="default-btn"><a href="/">Poursuivre l'expérience</a></div>
 								</div>
@@ -139,8 +139,10 @@ get_header();
 						?>
 						
 						<div class="checkbox-discover" style="background: white;">
-							<label  for="progress"><span class="text-label"><?php echo $label; ?></span>
-							  <input type="checkbox" name="progress" value="" disabled <?php echo $checked; ?>>
+							<label  for="progress">
+							  
+							   <span class="text-label"><?php echo $label; ?></span>
+							   <input type="checkbox" name="progress" value="" disabled <?php echo $checked; ?>>
 							  <span class="checkmark-input"></span>
 							</label>
 						</div>
@@ -176,26 +178,31 @@ get_header();
 						console.log("resp768",x768.matches);
 						console.log("resp1200",x1200.matches);
 
-						if(x576.matches && <?php echo $number_of_episodes ?>%2!=0) {
-							document.write('<div class="mb-5"></div>');
-							console.log("modulo576", <?php echo $number_of_episodes ?>%4);
-						}
-						else  if(x768.matches && <?php echo $number_of_episodes ?>%3!=0) {
-							console.log("modulo768", <?php echo $number_of_episodes ?>%4);
+						let ghost = 0;
+						if(x1200.matches && <?php echo $number_of_episodes ?>%4!=0) {
+							console.log("modulo1200");
+							if(<?php echo $number_of_episodes ?> == 5 || <?php echo $number_of_episodes ?> == 9) ghost  = 3;
+							if(<?php echo $number_of_episodes ?> == 6 || <?php echo $number_of_episodes ?> == 10) ghost = 2;
+							if(<?php echo $number_of_episodes ?> == 7 || <?php echo $number_of_episodes ?> == 11) ghost = 1;
 							i = 0;
-							while(i <= <?php echo $number_of_episodes ?>%3) {
+							while(i < ghost) {
 								document.write('<div class="episode-item ghost mb-5"></div>');
 								i++;
 							}
 						}
-						else if(x1200.matches && <?php echo $number_of_episodes ?>%4!=0) {
-								console.log("modulo", <?php echo $number_of_episodes ?>%4);
-								i = 0;
-								while(i <= <?php echo $number_of_episodes ?>%4) {
-									document.write('<div class="episode-item ghost mb-5"></div>');
-									i++;
-								}
-						
+						else if(x768.matches && <?php echo $number_of_episodes ?>%3!=0) {
+							console.log("modulo768");
+							if(<?php echo $number_of_episodes ?> == 4 || <?php echo $number_of_episodes ?> == 7) ghost  = 2;
+							if(<?php echo $number_of_episodes ?> == 5 || <?php echo $number_of_episodes ?> == 8) ghost = 1;
+							$i = 0;
+							while(i < ghost) {
+								document.write('<div class="episode-item ghost mb-5"></div>');
+								i++;
+							}
+						}
+						else if(x576.matches && <?php echo $number_of_episodes ?>%2!=0) {
+							document.write('<div class="mb-5"></div>');
+							console.log("modulo576", <?php echo $number_of_episodes ?>%4);
 						}
 					</script>
 
@@ -313,7 +320,11 @@ get_header();
 
 			<?php // section autres episodes ?>
 
-			<?php $display = ($progress['completed'] == 1)?'block':'none'; ?>
+			<?php 
+					$congrats = get_field('parcours_prinicpal_termine' , 'options'); 
+			?>
+
+			<?php $display = ($progress['completed'] == 1)?'none':'none'; ?>
 
 			<div id="parcours-secondaire" style="display:<?php echo $display; ?>">
 				
@@ -321,23 +332,24 @@ get_header();
 					<div class="container">
 						<div class="row">
 							<div class="column col-lg-4 col-8 mx-auto text-center">
-								<h1>Bravo !</h1>
-								<p>Avec ce premier parcours terminé, votre équipe a déjà fait un grand pas en avant. La suite de l’histoire s’écrit essentiellement dans votre quotidien, en essayant d’appliquer ce que vous avez appris ensemble.</p>
+								<div class="h1-sized"><?php echo $congrats['titre']; ?></div>
+								<p><?php echo $congrats['paragraphe']; ?></p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-12">
-								<div class="up-btn">Pour explorer librement le reste de ce kit</div>
-								<div class="default-btn"><a href="/bibliotheque">Aller à la bibliothèque</a></div>
+								<div class="up-btn"><?php echo $congrats['up_btn_library'] ?></div>
+								<div class="default-btn"><a href="/bibliotheque"><?php echo $congrats['texte_bouton_bibliotheque']; ?></a></div>
 							</div>
 						</div>
+					</div>
 				</section>
 
 				<section id="autre-parcours" class="mt-5">
 					<div class="container">
 						<div class="row">
 							<div class="col-12 mx-auto text-center up-btn" style="color: white;">
-								Si vous souhaitez suivre un autre parcours :
+								<?php echo $congrats['changement_de_parcours']; ?>
 							</div>
 						</div>
 					</div>
@@ -361,33 +373,26 @@ get_header();
 								    <?php 
 					
 								    while ( $query_parcours->have_posts() ):
-								        $query_parcours->the_post(); ?>
-								    	<div class="row">
-								    		<div class="col-12">
-										        <div class="parcours-item">
-										        	<div class="row">
-										        		<div class="col-12 col-lg-2">
-										        			<?php the_post_thumbnail('full'); ?>
-										        		</div>
-										        		<div class="col-12 col-lg-4">
-										        			<div class="up-title">Parcours</div>
-										        			<h2><?php the_title(); ?></h2>
-										        			<p><?php echo count(get_field('episodes')); ?> épisodes à découvrir!</p>
-										        			<p class="duration duration-white"><strong>Durée estimée : </strong><?php the_field('duration'); ?></p>
-										        		</div>
-										        		<div class="col-12 col-lg-6">
-										        			<p><?php the_field('intro_text'); ?></p>
-										        			<div class="text-center pt-2">
-										        				<div class="default-btn"><a href="<?php the_permalink(); ?>">Démarrer</a></div>
-										        			</div>
-										        		</div>
-										        	</div>
-										        </div>
-									    	</div>
-									    </div>
+								        $query_parcours->the_post();
+
+								           // get list of episodes
+								        $episodes = get_field('episodes');
+								        
+								        $episodes_number = count($episodes);
+
+								        $progress = get_status_progression(get_the_ID());
+
+								         $args = array(
+								        	'progress' 				=> $progress,
+								        	'number_of_episodes' 	=> $episodes_number,
+								        	'duration'   		 	=> get_field('duration'),
+								        	'intro_text'			=> get_field('intro_text')
+								        );
+								    	
+								    	get_template_part('template-parts/content' , 'parcours-logged' , $args);
 								    
 					
-								    <?php endwhile; ?>
+								     endwhile; ?>
 								    
 					
 								    </div><!-- .parcours-list -->
@@ -403,6 +408,7 @@ get_header();
 
 
 			</div>
+
 
 
 

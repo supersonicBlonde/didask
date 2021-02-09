@@ -8,7 +8,7 @@
         		<div class="col-12 col-xl-4 pl-xl-5">
         			<div class="up-title">Parcours</div>
         			<h2 class="pb-1"><?php the_title(); ?></h2>
-        			<p><?php echo $args['number_of_episodes']; ?> épisodes à découvrir!</p>
+        			<p><?php echo $args['number_of_episodes']; ?> activités à découvrir!</p>
         			<p class="duration duration-white pt-3"><strong>Durée estimée : </strong><?php echo $args['duration']; ?></p>
         		</div>
         		<div class="col-12 col-xl-5">

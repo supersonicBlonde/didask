@@ -19,6 +19,7 @@ get_header();
 $logged = is_user_logged_in();
 $section_intro = get_field('section_introduction_home');
 $section_2col = get_field('bloc_2_colonnes');
+$section_2col_bis = get_field('bloc_2_colonnes_copie');
 $section_intro_parcours = get_field('presentation_des_parcours');
 
 
@@ -56,6 +57,32 @@ $parcours_principal = get_parcours_principal();
 				</div>
 			</div>
 		</div>
+
+		<?php if(!empty($section_2col_bis)): ?>
+		<div class="container">
+			<div class="row">
+				<div class="col-12 my-5">
+					<div class="scroll-next text-center">
+						<a href="#"><img src="<?php echo get_template_directory_uri().'/img/arrow-scroll.svg'?>"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="home-section-2-bis" class="section center">
+			<div class="container">
+				<div class="row my-auto">
+					
+					<div class="col-12 col-lg-5 column my-auto">
+						<h2 class="h3-sized text-uppercase"><?php echo $section_2col_bis['titre'] ?></h2>
+						<p><?php echo $section_2col_bis['paragraphe'] ?></p>
+					</div>
+					<div class="col-12 col-lg-7 mb-3 column">
+						<div class="embed-responsive embed-responsive-16by9"><?php echo $section_2col_bis['video'] ?></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php endif; ?>
 
 		<div id="home-section-3"  class="section">
 			<div class="container">

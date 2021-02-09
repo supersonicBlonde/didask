@@ -136,7 +136,11 @@ get_header();
 								************************/
 								?>
 								<div class="content-list">
-									<?php foreach($episode['episodes'] as $key): 
+									<?php 
+
+									$bloc_contenu_activite = get_field('bloc_contenu_activite', 'options');
+
+									 foreach($episode['episodes'] as $key): 
 											$args = array('post_type' => 'episodes' , 'p' => $key); 
 											$query_episode = new WP_Query( $args );
 
@@ -174,7 +178,7 @@ get_header();
 																					<?php endif; ?>
 																				</div><!-- .col -->
 																				<div class="col-12 col-lg-6 px-5 content">
-																					<div style="font-size: 2em;font-weight: 600;" class="text-uppercase mb-2"><?php the_field('bloc_contenu_activite' , 'options'); ?></div>
+																					<div style="font-size: 2em;font-weight: 600;" class="text-uppercase mb-2"><?php echo $bloc_contenu_activite['title_instructions']; ?></div>
 																					<?php echo $content['content']; ?>
 																				</div><!-- .col -->
 																			</div><!-- .row -->

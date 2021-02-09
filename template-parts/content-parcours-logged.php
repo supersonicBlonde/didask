@@ -8,10 +8,10 @@
         		<div class="col-12 col-xl-4 pl-xl-5">
         			<div class="up-title">Parcours</div>
         			<h2><?php the_title(); ?></h2>
-        			<div id="progress-section">
+        			<div class="progress-section">
         				
                                         <?php if( $args['progress']['percent'] > 0): ?>
-                                        <div class="progress-text"><?php echo $args['progress']['achieved'] ?> épisode<?php echo $args['progress']['achieved'] > 1?'s':''?> terminé<?php echo $args['progress']['achieved'] > 1?'s':''?> sur <?php echo $args['number_of_episodes']; ?>
+                                        <div class="progress-text"><?php echo $args['progress']['achieved'] ?> activité<?php echo $args['progress']['achieved'] > 1?'s':''?> terminée<?php echo $args['progress']['achieved'] > 1?'s':''?> sur <?php echo $args['number_of_episodes']; ?>
                                         <?php if($args['progress']['completed'] == 1): ?>
                                                 <span class="checkmark"></span>
                                         <?php endif; ?>
@@ -21,7 +21,7 @@
         					</div>
         				</div>
                                         <?php else: ?>
-                                                <p><?php echo $args['number_of_episodes']; ?> épisodes à découvrir!</p>
+                                                <p><?php echo $args['number_of_episodes']; ?> activités à découvrir!</p>
                                                 <p class="duration duration-white pt-3"><strong>Durée estimée : </strong><?php echo $args['duration']; ?></p>
                                         <?php endif; ?>
         			</div>

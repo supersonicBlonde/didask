@@ -71,10 +71,10 @@ function didask_parcours_tax() {
 
 function didask_episode() {
 	$labels = array(
-		'name' 				=> 'Episodes',
-		'singular_name' 	=> 'Episode',
-		'menu_name'			=> 'Episodes',
-		'name_admin_bar'	=> 'Episodes'
+		'name' 				=> 'Activités',
+		'singular_name' 	=> 'Activité',
+		'menu_name'			=> 'Activités',
+		'name_admin_bar'	=> 'Activités'
 	);
 	
 	$args = array(

@@ -86,6 +86,12 @@ function save_parcours($id_parcours, $principal, $completed) {
 
 	$id_user = get_current_user_id();
 	global $wpdb;
+	if($completed == 0) {
+		$date_completed = null;
+	} 
+	else {
+		$date_completed = date( "Y-m-d", time() );
+	}
 
 	$results = $wpdb->get_results("SELECT * FROM parcours_user WHERE id_user = $id_user and id_parcours = $id_parcours", ARRAY_A);
 
@@ -98,25 +104,31 @@ function save_parcours($id_parcours, $principal, $completed) {
 			    	'id_user' => $id_user, 
 			        'id_parcours' => $id_parcours,
 			        'principal' => $principal,
-			        'completed' => $completed
+			        'completed' => $completed,
+			        'date_started' => date( "Y-m-d", time() )
 			    ), 
 			    array( 
 			        '%d',
 			        '%d',
 			        '%d',
-			        '%d'
+			        '%d',
+			        '%s'
 			    ) 
 			);
+
+
 	}
 	else {
 		$db = $wpdb->update( 
 		    'parcours_user', 
 		    array( 
-		        'principal' => $principal
+		        'principal' => $principal,
+		        'date_completed' => $date_completed,
+		        'completed' => $completed
 		    ), 
 		    array( 'id_user' => $id_user , 'id_parcours' => $id_parcours ), 
 		    array( 
-		        '%d'
+		        '%d', '%s' , '%d'
 		    ), 
 		    array( '%d' , '%d' ) 
 		);
@@ -241,8 +253,8 @@ function process_parcours($id_user, $id_parcours, $id_episode, $is_current_compl
 }
 
 // Ajax functions
-add_action( 'wp_ajax_nopriv_save_tracking', 'track_progress' );
 add_action( 'wp_ajax_save_tracking', 'track_progress' ); 
+add_action( 'wp_ajax_nopriv_save_tracking', 'track_progress' );
 
 
 function track_progress() {
@@ -267,7 +279,11 @@ function track_progress() {
 	$is_current_completed = is_current_parcours_completed($id_user , $id_episode , $id_parcours);
 	process_parcours($id_user, $id_parcours, $id_episode, $is_current_completed);
 	
-	$result = ['insert' => $db, 'index' => $index , 'id_episode' => $id_episode , 'completed' => $is_current_completed, 'texts' => $bloc_contenu_activite];
+	$principal = get_parcours_principal();
+	$principal = $principal['id_parcours'] = $id_parcours?true:false;
+
+	
+	$result = ['insert' => $db, 'index' => $index , 'id_episode' => $id_episode , 'completed' => $is_current_completed, 'principal' => $principal, 'texts' => $bloc_contenu_activite];
 
 	echo json_encode($result);
 
@@ -276,9 +292,9 @@ function track_progress() {
 }
 
 
-add_action( 'wp_ajax_nopriv_cancel_tracking', 'cancel_progress' );
-add_action( 'wp_ajax_cancel_tracking', 'cancel_progress' ); 
 
+add_action( 'wp_ajax_cancel_tracking', 'cancel_progress' ); 
+add_action( 'wp_ajax_nopriv_cancel_tracking', 'cancel_progress' );
 
 function cancel_progress() {
 	check_ajax_referer( 'MY_NONCE_VAR', 'submitted_nonce' ); 
@@ -305,8 +321,9 @@ function cancel_progress() {
     wp_die();
 }
 
-add_action( 'wp_ajax_nopriv_get_progress_bar', 'get_progress_bar' );
+
 add_action( 'wp_ajax_get_progress_bar', 'get_progress_bar' ); 
+add_action( 'wp_ajax_nopriv_get_progress_bar', 'get_progress_bar' );
 
 function get_progress_bar() {
 
@@ -318,8 +335,9 @@ function get_progress_bar() {
 }
 
 
+
+add_action( 'wp_ajax_get_episode_status', 'get_status_episode' );
 add_action( 'wp_ajax_nopriv_get_episode_status', 'get_status_episode' );
-add_action( 'wp_ajax_get_episode_status', 'get_status_episode' ); 
 
 function get_status_episode() {
 
